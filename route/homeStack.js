@@ -10,11 +10,11 @@ const HomeStack=()=>{
 
     return(
        
-            <Stack.Navigator>
-                <Stack.Group>
-                <Stack.Screen name='Home' component={Home}/>
-                <Stack.Screen name='Login' component={Login}/>
-            </Stack.Group>
+            <Stack.Navigator screenOptions={{headerShown:true}}>
+                <Stack.Group> 
+                    <Stack.Screen name='Home' component={Home} />
+                    <Stack.Screen name='Login' component={Login}/>
+                </Stack.Group>
             </Stack.Navigator>
        
     );

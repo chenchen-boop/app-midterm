@@ -1,11 +1,15 @@
 import {StyleSheet,View,Button,Text,SafeAreaView}from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
+ 
 const Home=()=>{
+    const navigation = useNavigation(); 
+ 
     return(
     <SafeAreaView style={styles.container}>
 
-        <Button title='登入'></Button>
-        <Button title='註冊'></Button>
+        <Button onPress={()=>navigation.navigate('Login')} title='登入'/>
+        <Button title='註冊'/>
         
         
 
