@@ -1,79 +1,20 @@
 import {StyleSheet,View,Button,Text,SafeAreaView,Pressable}from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import React, { Component } from 'react';
+import{ useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
-// const count=0;
+//   const navigation = useNavigation(); 
 
-
-
-// const Main=()=>{
-
-    
-
-
-
-//     return(
-//         <SafeAreaView>
-//             <View>
-//                 <Text>logo</Text>
-//             </View>
-//             <View>
-//                 <Text>國北數位</Text>
-//             </View>
-//             <View>
-//                 <Button title='管理球隊'/>
-//             </View>
-        
-//             <View>
-//                 <Text>----------------------------------------------------------------------------</Text>
-//             </View>
-//             <View>
-//                 <Text>球員名單</Text>
-//             </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-//             <Pressable onPress={createNewRow}>
-//                 <AntDesign name="plus" size={24} color="black" />
-//             </Pressable>
-
-
-
-
-
-
-//         </SafeAreaView>
-
-//     );
-
-
-// };
-
-
-
-// const createNewRow=()=>{
-//     return(
-//         <View>
-//         <Text>ddddddddddddddddddddddd</Text>
-//         </View>
-//     )
-
-// }
 
 
 
   class Main extends React.Component{
+
+    
+
+
         constructor(){
             super();
             this.state={
@@ -81,52 +22,87 @@ import { TextInput } from 'react-native-gesture-handler';
                 name:'',
                 height:'',
                 weight:'',
-
+              
             }
 
 
         }
         submit(){
-            console.warn(this.state)
+            // console.warn(this.state);
+            this.setState({name:this.state.number++});
+            
         }
         render(){
+
+           
             return(
-                <View>
-                    <TextInput
-                    placeholder='number'
-                    onChangeText={(text)=>{this.setState({number:text})}}
-                    style={{borderWidth:2 ,margin:20}}
+                <View >
+                    <View style={{alignItems:'center'}}>
+                        <View>
+                            <Text>logo</Text>
+                        </View>
+                        <View>
+                            <Text>國北數位</Text>
+                        </View>
+                        <View>
+                            <Button title='管理球隊' onPress={()=>this.props.navigation.navigate('Manage')}/>
+                        </View>
+                        
+                        <View>
+                             <Text>------------------------------------------------------------------------------------------------------------------------------------------</Text>
+                        </View>
+                        <View>
+                            <Text>球員名單</Text>
+                        </View>
+        
+                       
+                    </View>
+                    <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
+                        <TextInput
+                        placeholder='number' 
+                        onChangeText={(text)=>{this.setState({number:text})}}
+                        style={{borderWidth:2 ,margin:20,fontSize:20}}
 
-                    
-                    />
-                     <TextInput
-                    placeholder='name'
-                    onChangeText={(text)=>{this.setState({name:text})}}
-                    style={{borderWidth:2 ,margin:20}}
+                        
+                        />
+                        <TextInput
+                        placeholder='name'
+                        onChangeText={(text)=>{this.setState({name:text})}}
+                        style={{borderWidth:2 ,margin:20,fontSize:20}}
 
-                    
-                    />
-                     <TextInput
-                    placeholder='height'
-                    onChangeText={(text)=>{this.setState({height:text})}}
-                    style={{borderWidth:2 ,margin:20}}
+                        
+                        />
+                        <TextInput
+                        placeholder='height'
+                        onChangeText={(text)=>{this.setState({height:text})}}
+                        style={{borderWidth:2 ,margin:20,fontSize:20}}
 
-                    
-                    />
-                     <TextInput
-                    placeholder='weight'
-                    onChangeText={(text)=>{this.setState({weight:text})}}
-                    style={{borderWidth:2 ,margin:20}}
+                        
+                        />
+                        <TextInput
+                        placeholder='weight'
+                        onChangeText={(text)=>{this.setState({weight:text})}}
+                        style={{borderWidth:2 ,margin:20,fontSize:20}}
 
-                    
-                    />
-                    <Button title='submit' onPress={()=>this.submit()}/>
+                        
+                        />
+
+                        <Pressable style={{ borderRadius: 4,margin:20,backgroundColor: 'blue',}} onPress={()=>this.submit()}>
+                            <Text  style={{fontSize:20}}>submit</Text>
+                        </Pressable>
+
+                        <Text>{this.state.number}</Text>
+
+
+                        
+
+                    </View>
+                    <Pressable style={{alignItems:'center'}}>
+                            <AntDesign name="plus" size={24} color="black" />
+                    </Pressable>
 
 
                 </View>
-
-
-
 
             );
 
