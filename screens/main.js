@@ -33,7 +33,13 @@ import { useNavigation } from '@react-navigation/native';
             
         }
         render(){
-
+                var player={
+                    number:this.state.number,
+                    name:this.state.name,
+                    height:this.state.height,
+                    weight:this.state.weight,
+                   
+                }
            
             return(
                 <View >
@@ -45,7 +51,7 @@ import { useNavigation } from '@react-navigation/native';
                             <Text>國北數位</Text>
                         </View>
                         <View>
-                            <Button title='管理球隊' onPress={()=>this.props.navigation.navigate('Manage')}/>
+                            <Button title='管理球隊' onPress={()=>this.props.navigation.navigate('Manage',{player})}/>
                         </View>
                         
                         <View>
