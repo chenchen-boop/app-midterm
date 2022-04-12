@@ -1,6 +1,7 @@
 import React  from "react";
 import {View,Button,Text, SafeAreaView, StyleSheet, TextInput}from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import GlobalStyle from '../styles/global'
 
 const Login=()=>{
 
@@ -12,7 +13,7 @@ const Login=()=>{
         <View >
             <Text>帳號</Text>
             <TextInput
-            style={styles.input}
+           style={GlobalStyle.input}
             onChangeText={onChangeText}
             value={text}
             placeholder="albert"
@@ -21,7 +22,7 @@ const Login=()=>{
         <View>
             <Text>密碼</Text>
             <TextInput
-            style={styles.input}
+           style={GlobalStyle.input}
             onChangeText={onChangeNumber}
             value={number}
             placeholder="12345678"
