@@ -5,115 +5,92 @@ import{ useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-//   const navigation = useNavigation(); 
+  
 
+const Main=()=>{
+    const navigation = useNavigation(); 
 
+    const [Number,setNumber]=useState('');
+    const [Name,setName]=useState('');
+    const [Height,setHeight]=useState('');
+    const [Weight,setWeight]=useState('');
+   
 
-
-  class Main extends React.Component{
-
-    
-
-
-        constructor(){
-            super();
-            this.state={
-                number:'',
-                name:'',
-                height:'',
-                weight:'',
-              
-            }
-
-
-        }
-        submit(){
-            // console.warn(this.state);
-            this.setState({name:this.state.number++});
-            
-        }
-        render(){
-                var player={
-                    number:this.state.number,
-                    name:this.state.name,
-                    height:this.state.height,
-                    weight:this.state.weight,
-                   
-                }
-           
-            return(
-                <View >
-                    <View style={{alignItems:'center'}}>
-                        <View>
-                            <Text>logo</Text>
-                        </View>
-                        <View>
-                            <Text>國北數位</Text>
-                        </View>
-                        <View>
-                            <Button title='管理球隊' onPress={()=>this.props.navigation.navigate('Manage',{player})}/>
-                        </View>
-                        
-                        <View>
-                             <Text>------------------------------------------------------------------------------------------------------------------------------------------</Text>
-                        </View>
-                        <View>
-                            <Text>球員名單</Text>
-                        </View>
+    return(
+        <View>
+            <View style={{alignItems:'center'}}>
+                <View>
+                     <Text>logo</Text>
+                </View>
+                <View>
+                    <Text>國北數位</Text>
+                </View>
+                <View>
+                      <Button title='管理球隊' onPress={()=>navigation.navigate('Manage')}/>
+                    </View>
+                
+                <View>
+                      <Text>------------------------------------------------------------------------------------------------------------------------------------------</Text>
+                </View>
+                <View>                             
+                    <Text>球員名單</Text>
+                </View>
         
                        
-                    </View>
-                    <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
-                        <TextInput
-                        placeholder='number' 
-                        onChangeText={(text)=>{this.setState({number:text})}}
-                        style={{borderWidth:2 ,margin:20,fontSize:20}}
-
-                        
-                        />
-                        <TextInput
-                        placeholder='name'
-                        onChangeText={(text)=>{this.setState({name:text})}}
-                        style={{borderWidth:2 ,margin:20,fontSize:20}}
-
-                        
-                        />
-                        <TextInput
-                        placeholder='height'
-                        onChangeText={(text)=>{this.setState({height:text})}}
-                        style={{borderWidth:2 ,margin:20,fontSize:20}}
-
-                        
-                        />
-                        <TextInput
-                        placeholder='weight'
-                        onChangeText={(text)=>{this.setState({weight:text})}}
-                        style={{borderWidth:2 ,margin:20,fontSize:20}}
-
-                        
-                        />
-
-                        <Pressable style={{ borderRadius: 4,margin:20,backgroundColor: 'blue',}} onPress={()=>this.submit()}>
-                            <Text  style={{fontSize:20}}>submit</Text>
-                        </Pressable>
-
-                        <Text>{this.state.number}</Text>
-
-
-                        
-
-                    </View>
-                    <Pressable style={{alignItems:'center'}}>
-                            <AntDesign name="plus" size={24} color="black" />
-                    </Pressable>
-
-
+            </View>
+            <View style={{flexDirection: "row",justifyContent: 'center'}}>
+                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>背號</Text>
+                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>姓名</Text>
+                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>身高</Text>
+                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>體重</Text>
                 </View>
+            <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
+                
+                <TextInput
+                    placeholder='number'
+                    onChangeText={(text)=>setNumber(text)}
+                    
+                    keyboardType='numeric'
+                    style={{borderWidth:2 ,margin:20,fontSize:20}}/>
+                
+                <TextInput
+                    placeholder='name'
+                    onChangeText={(text)=>setName(text)}
+            
+                    style={{borderWidth:2 ,margin:20,fontSize:20}}/>
+                
+                <TextInput
+                    placeholder='height'
+                    onChangeText={(text)=>setHeight(text)}
+                    
+                    keyboardType='numeric'
+                    selectTextOnFocus={false}
+                    style={{borderWidth:2 ,margin:20,fontSize:20}}/>
+                
+                <TextInput
+                    placeholder='weight'
+                    onChangeText={(text)=>setWeight(text)}
+                    
+                    keyboardType='numeric'
+                    style={{borderWidth:2 ,margin:20,fontSize:20}}/>
+               
+                
 
-            );
+            </View>
+            <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
+                <Text>{Number}</Text>
+                <Text>{Name}</Text>
+                <Text>{Height}</Text>
+                <Text>{Weight}</Text>
+            </View>
+            <Pressable onPress={()=>navigation.navigate('CreatePlayer')}>
+                    <AntDesign name="plus" size={24} color="black" />
+            </Pressable>
+       </View>
 
 
-        }
+
+    )
 
 
 
@@ -121,9 +98,10 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-  }
 
 
+
+}
 
 
 

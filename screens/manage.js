@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
 import {View,Button,Text, SafeAreaView, StyleSheet, TextInput}from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons'; 
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
-
- class Manage extends Component{
-    constructor(){
-        super();
-    }
-    render(){
-        console.log(this.props);
+const Manage=()=>{
+    const navigation = useNavigation(); 
+    
+        console.log();
         return(
             <View>
-                <Text>{this.props.route.params.player.number}</Text>
-                <Text>{this.props.route.params.player.name}</Text>
-                <Text>{this.props.route.params.player.height}</Text>
-                <Text>{this.props.route.params.player.weight}</Text>
-
+                <Pressable>
+                    <AntDesign name="plus" size={24} color="black" />
+               </Pressable>
+              
             </View>
              
 
         )
-    }   
+}   
 
 
-};
+
 
 
 export default Manage;
