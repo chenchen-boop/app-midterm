@@ -35,7 +35,7 @@ const CreateRival=({addRival})=>{
                         <TextInput
                             placeholder='Name'
                             onChangeText={props.handleChange('Name')}
-                            value={props.values.Rival}
+                            value={props.values.Name}
                             style={GlobalStyle.input}
                         />
                         

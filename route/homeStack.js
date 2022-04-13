@@ -6,6 +6,7 @@ import Login from '../screens/login';
 import Main from '../screens/main';
 import Manage from '../screens/manage';
 import CreatePlayer from '../screens/createplayer';
+import Ready from '../screens/ready';
 const Stack =createNativeStackNavigator();
 
 const HomeStack=()=>{
@@ -19,6 +20,7 @@ const HomeStack=()=>{
                     <Stack.Screen name='Main' component={Main}/>
                     {/* <Stack.Screen name='CreatePlayer' component={CreatePlayer}/> */}
                     <Stack.Screen name='Manage' component={Manage}/>
+                    <Stack.Screen name='Ready' component={Ready}/>
                 </Stack.Group>
             </Stack.Navigator>
        

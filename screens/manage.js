@@ -13,7 +13,7 @@ const Manage=()=>{
     const [modalOpen, setModalOpen] = useState(false);
 
     const [Rival,setRival]=useState([
-       {Date:'1/12',Type:'友誼',name:'教育'}
+       {Date:'1/12',Type:'友誼',Name:'教育',key:'1'}
     ]);  
     const addRival=(Rival)=>{
         Rival.key=Math.random().toString();
@@ -44,7 +44,7 @@ const Manage=()=>{
                         <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>{item.Date}</Text>
                         <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>{item.Type}</Text>
                         <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>{item.Name}</Text>
-                        <Pressable style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,backgroundColor:'blue' ,borderRadius:4}}><Text >數據控制</Text></Pressable>
+                        <Pressable  onPress={()=>navigation.navigate('Ready',item) } style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,backgroundColor:'blue' ,borderRadius:4}} ><Text >數據控制</Text></Pressable>
                         <Pressable style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,backgroundColor:'blue',borderRadius:4}}><Text>數據</Text></Pressable>
                     </View>
                 )}
