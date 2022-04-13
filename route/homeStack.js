@@ -7,7 +7,11 @@ import Main from '../screens/main';
 import Manage from '../screens/manage';
 import CreatePlayer from '../screens/createplayer';
 import Ready from '../screens/ready';
+import Splash from '../screens/splash';
+import { HeaderTitle } from 'react-navigation-stack';
 const Stack =createNativeStackNavigator();
+
+
 
 const HomeStack=()=>{
 
@@ -15,8 +19,9 @@ const HomeStack=()=>{
        
             <Stack.Navigator screenOptions={{headerShown:true}}>
                 <Stack.Group> 
-                    <Stack.Screen name='Home' component={Home} />
-                    <Stack.Screen name='Login' component={Login}/>
+                    <Stack.Screen name='Splash' component={Splash} options={{headerShown: false}}/>
+                    <Stack.Screen name='Home' component={Home} options={{headerBackVisible: false}}/>
+                    <Stack.Screen name='Login' component={Login} />
                     <Stack.Screen name='Main' component={Main}/>
                     {/* <Stack.Screen name='CreatePlayer' component={CreatePlayer}/> */}
                     <Stack.Screen name='Manage' component={Manage}/>

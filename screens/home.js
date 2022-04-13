@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
  
 const Home=()=>{
     const navigation = useNavigation(); 
- 
+   
     return(
     <SafeAreaView style={styles.container}>
 
@@ -24,7 +24,7 @@ export default Home;
  const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: 'gray',
       alignItems: 'center',
       justifyContent: 'center',
     },
