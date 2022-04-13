@@ -17,7 +17,7 @@ const HomeStack=()=>{
                     <Stack.Screen name='Home' component={Home} />
                     <Stack.Screen name='Login' component={Login}/>
                     <Stack.Screen name='Main' component={Main}/>
-                    <Stack.Screen name='CreatePlayer' component={CreatePlayer}/>
+                    {/* <Stack.Screen name='CreatePlayer' component={CreatePlayer}/> */}
                     <Stack.Screen name='Manage' component={Manage}/>
                 </Stack.Group>
             </Stack.Navigator>

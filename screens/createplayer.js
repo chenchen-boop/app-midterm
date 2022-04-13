@@ -13,8 +13,9 @@ const CreatePlayer=({addPlayer})=>{
             
             <Formik
                 initialValues={{Name:'',Number:'',Height:'',Weight:''}}
-                onSubmit={(values)=>{
+                onSubmit={(values,actions)=>{
                     addPlayer(values);
+                    actions.resetForm();
                     console.log(values); 
 
                 }}

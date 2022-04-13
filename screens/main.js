@@ -26,9 +26,9 @@ const Main=()=>{
     const addPlayer=(player)=>{
         player.key=Math.random().toString();
         setPlayer((currentPlayers)=>{
-            return[player, ...currentPlayers];
+            return[ ...currentPlayers,player];
         });
-        setModalOpen(false);
+          setModalOpen(false);
     }
       
     
@@ -62,7 +62,7 @@ const Main=()=>{
                     <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>姓名</Text>
                     <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>身高</Text>
                     <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>體重</Text>
-                </View>
+            </View>
             
         <FlatList
             data={Player}
@@ -85,29 +85,29 @@ const Main=()=>{
             </Pressable> */}
 
 
-    <View>
-        <Modal visible={modalOpen} animationType='slide'>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.modalContent}>
-                <MaterialIcons 
-                name='close'
+        <View>
+            <Modal visible={modalOpen} animationType='slide'>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.modalContent}>
+                        <MaterialIcons 
+                        name='close'
+                        size={24} 
+                        style={{...styles.modalToggle, ...styles.modalClose}} 
+                        onPress={() => setModalOpen(false)} 
+                        />
+                        <CreatePlayer addPlayer={addPlayer} />
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
+            <MaterialIcons 
+                name='add' 
                 size={24} 
-                style={{...styles.modalToggle, ...styles.modalClose}} 
-                onPress={() => setModalOpen(false)} 
-                />
-                <CreatePlayer addPlayer={addPlayer} />
-            </View>
-            </TouchableWithoutFeedback>
-        </Modal>
-        <MaterialIcons 
-            name='add' 
-            size={24} 
-            style={styles.modalToggle}
-            onPress={() => setModalOpen(true)} 
-        />
+                style={styles.modalToggle}
+                onPress={() => setModalOpen(true)} 
+            />
         
         
-    </View>
+        </View>
 </View>
     
 
