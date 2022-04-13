@@ -9,7 +9,7 @@ const Login=()=>{
     const [number, onChangeNumber] = React.useState(null);
     const navigation = useNavigation(); 
     return(
-    <SafeAreaView>
+    <View style={GlobalStyle.container}>
         <View >
             <Text>帳號</Text>
             <TextInput
@@ -31,7 +31,7 @@ const Login=()=>{
         </View>
         <Button title='送出' onPress={()=>navigation.navigate('Main')}/>
 
-    </SafeAreaView>
+    </View>
     );
 
 

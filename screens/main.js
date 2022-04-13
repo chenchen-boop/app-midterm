@@ -6,6 +6,7 @@ import {  TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import CreatePlayer from './createplayer';
+import GlobalStyle from '../styles/global'
 
   
 
@@ -35,14 +36,14 @@ const Main=()=>{
    
 
     return(
-    <View>
+    <View >
 
             <View style={{alignItems:'center'}}>
                 <View>
                      <Text>logo</Text>
                 </View>
                 <View>
-                    <Text>國北數位</Text>
+                    <Text>國北丙籃</Text>
                 </View>
                 <View>
                       <Button title='管理球隊' onPress={()=>navigation.navigate('Manage')}/>

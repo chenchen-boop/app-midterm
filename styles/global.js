@@ -15,6 +15,18 @@ const global = StyleSheet.create({
         borderRadius:6,
 
 
+    },
+    text:{
+        fontSize:20,
+    },
+    btn:{
+        borderWidth:1 ,
+        margin:20,
+        fontSize:20,
+        padding:10,
+        backgroundColor:'blue' ,
+        borderRadius:4
+
     }
 
   });
