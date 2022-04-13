@@ -8,12 +8,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default class  Splash extends Component{
    
-   
-    
     componentWillMount(){
    
-         setTimeout(()=>{this.props.navigation.navigate('Home');
-         },8000)
+         setTimeout(()=>{this.props.navigation.navigate('Home')},8000);
     }
     render(){
         return(
@@ -33,7 +30,7 @@ export default class  Splash extends Component{
 }
 const styles = StyleSheet.create({
     splash:{
-        backgroundColor:'#666666',
+        backgroundColor:'#f2f2f2',
     }
 
 })
