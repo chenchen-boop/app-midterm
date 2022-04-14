@@ -81,10 +81,10 @@ const Main=()=>{
                     renderItem={({item})=>(
                         <View  >
                             <View style={{justifyContent: 'center',flexDirection:'row'}}>
-                                <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Number}</Text>
-                                <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Name}</Text>
-                                <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Height}</Text>
-                                <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Weight}</Text>
+                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Number}</Text>
+                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Name}</Text>
+                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Height}</Text>
+                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Weight}</Text>
                                 
                             </View>
                         </View>

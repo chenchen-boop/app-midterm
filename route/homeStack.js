@@ -17,7 +17,7 @@ const HomeStack=()=>{
 
     return(
        
-            <Stack.Navigator screenOptions={{headerShown:true}}>
+            <Stack.Navigator screenOptions={{headerShown:true, headerTitleAlign: 'center'}}>
                 <Stack.Group> 
                     <Stack.Screen name='Splash' component={Splash} options={{headerShown: false}}/>
                     <Stack.Screen name='Home' component={Home} options={{headerBackVisible: false}}/>
