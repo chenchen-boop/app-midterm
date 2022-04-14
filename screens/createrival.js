@@ -25,6 +25,7 @@ const CreateRival=({addRival})=>{
                             onChangeText={props.handleChange('Date')}
                             value={props.values.Date}
                             style={GlobalStyle.input}
+                            keyboardType='numeric'
                         />
                         <TextInput
                             placeholder='Type'

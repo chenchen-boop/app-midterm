@@ -1,4 +1,4 @@
-import {StyleSheet,View,Button,Text,SafeAreaView,Pressable,FlatList,Modal,TouchableWithoutFeedback, Keyboard}from 'react-native';
+import {StyleSheet,View,Button,Text,SafeAreaView,Pressable,FlatList,Modal,TouchableWithoutFeedback, Keyboard,Alert}from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import React, { Component } from 'react';
 import{ useState } from 'react';
@@ -6,6 +6,8 @@ import {  TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import CreateRival from './createrival';
+import GlobalStyle from '../styles/global'
+
 
 
 const Manage=()=>{
@@ -13,12 +15,12 @@ const Manage=()=>{
     const [modalOpen, setModalOpen] = useState(false);
 
     const [Rival,setRival]=useState([
-       {Date:'1/12',Type:'友誼',Name:'教育',key:'1'}
+       {Date:'4/16',Type:'友誼賽',Name:'教育系',key:'1'}
     ]);  
     const addRival=(Rival)=>{
         Rival.key=Math.random().toString();
         setRival((currentRivals)=>{
-            return[ ...currentRivals,Rival];
+            return[ Rival,...currentRivals];
         });
           setModalOpen(false);
     };
@@ -27,25 +29,34 @@ const Manage=()=>{
     
     return(
             
-        <View>
+        <View style={[styles.container]}>
             <View style={{flexDirection: "row",justifyContent: 'center'}}>
-                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>日期</Text>
-                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>性質</Text>
-                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>對手</Text>
-                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>數據控制</Text>
-                    <Text style={{borderWidth:2 ,margin:20,fontSize:20}}>數據</Text>
+                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>日期</Text>
+                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>性質</Text>
+                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>對手</Text>
+                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>數據控制</Text>
+                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>數據</Text>
             </View>
-               
+            <MaterialIcons 
+                    name='add' 
+                    size={24} 
+                    style={styles.modalToggle}
+                    onPress={() => setModalOpen(true)} 
+                />
 
             <FlatList
                 data={Rival}
                 renderItem={({item})=>(
                     <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
-                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>{item.Date}</Text>
-                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>{item.Type}</Text>
-                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>{item.Name}</Text>
-                        <Pressable  onPress={()=>navigation.navigate('Ready',item) } style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,backgroundColor:'blue' ,borderRadius:4}} ><Text >數據控制</Text></Pressable>
-                        <Pressable style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,backgroundColor:'blue',borderRadius:4}}><Text>數據</Text></Pressable>
+                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Date}</Text>
+                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Type}</Text>
+                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Name}</Text>
+                        <Pressable  onPress={()=>navigation.navigate('Ready',item) } style={[GlobalStyle.btn,styles.btn]} >
+                            <Text  style={GlobalStyle.text}>數據控制</Text>
+                        </Pressable>
+                        <Pressable onPress={()=>Alert.alert("Comming Soon")} style={[GlobalStyle.btn,styles.btn]}>
+                            <Text  style={GlobalStyle.text}>數據</Text>
+                        </Pressable>
                     </View>
                 )}
             />
@@ -63,12 +74,7 @@ const Manage=()=>{
                         </View>
                     </TouchableWithoutFeedback>
                 </Modal>
-                <MaterialIcons 
-                    name='add' 
-                    size={24} 
-                    style={styles.modalToggle}
-                    onPress={() => setModalOpen(true)} 
-                />
+                
             </View>
            
         </View>
@@ -93,6 +99,14 @@ const styles = StyleSheet.create({
     },
     modalContent: {
       flex: 1,
+    },
+    container:{
+        paddingTop:100,
+        paddingBottom:200,
+        height:1100
+    },
+    btn:{
+        paddingHorizontal:16
     }
   });
 

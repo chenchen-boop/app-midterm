@@ -27,24 +27,28 @@ const CreatePlayer=({addPlayer})=>{
                             onChangeText={props.handleChange('Name')}
                             value={props.values.Name}
                             style={GlobalStyle.input}
+                            
                         />
                         <TextInput
                             placeholder='Number'
                             onChangeText={props.handleChange('Number')}
                             value={props.values.Number}
                             style={GlobalStyle.input}
+                            keyboardType='numeric'
                         />
                         <TextInput
                             placeholder='Height'
                             onChangeText={props.handleChange('Height')}
                             value={props.values.Height}
                             style={GlobalStyle.input}
+                            keyboardType='numeric'
                         />
                         <TextInput
                             placeholder='Weight'
                             onChangeText={props.handleChange('Weight')}
                             value={props.values.Weight}
                             style={GlobalStyle.input}
+                            keyboardType='numeric'
                         />
                     
 

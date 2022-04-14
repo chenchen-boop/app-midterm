@@ -8,13 +8,14 @@ const Ready=({route})=>{
    
     return(
         <View style={GlobalStyle.container} >
-            <Text style={GlobalStyle.text}>{Type}</Text>
-            <View style={{flexDirection:'row'}}>
-                <Text style={styles.MainText}>國北丙籃</Text>
-                <Text style={styles.MainText}>{Name}</Text>
-            </View>
-            <Text style={styles.MainText}>{Date}</Text>
-            <Pressable >
+           
+           
+            <Text style={[GlobalStyle.text,styles.text]}>{Type}</Text>
+            <Text style={[GlobalStyle.title,styles.title]}>國北丙籃</Text>
+            <Text style={[GlobalStyle.text,styles.MainText]}>VS</Text>
+            <Text style={[GlobalStyle.text,styles.text,styles.redtext]}>{Name}</Text>
+            <Text style={[GlobalStyle.text,styles.MainText]}>{Date}</Text>
+            <Pressable onPress={()=>Alert.alert('comming soon')}>
                 <Text style={[GlobalStyle.text,GlobalStyle.btn]} >記錄自己數據</Text>
             </Pressable>
             <Pressable 
@@ -33,8 +34,24 @@ export default Ready;
 
 const styles = StyleSheet.create({
     MainText:{
+        color:'black',
         fontSize:40,
         margin:40
+    },
+    title:{
+        color:'#000099',
+        fontSize:60,
+        marginTop:0,
+        marginBottom:30,
+        letterSpacing:20,
+    },
+    text:{
+        fontSize:40,
+        color:'black',
+        
+    },
+    redtext:{
+        color:'red'
     }
 
 

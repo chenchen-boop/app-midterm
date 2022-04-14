@@ -18,16 +18,30 @@ const global = StyleSheet.create({
     },
     text:{
         fontSize:20,
+        fontFamily: 'serif',
+        fontWeight:'bold',
+        color: "white",
     },
     btn:{
-        borderWidth:1 ,
+        
+        textAlign: "center",
+        backgroundColor: "#3399ff",
         margin:20,
-        fontSize:20,
-        padding:10,
-        backgroundColor:'blue' ,
-        borderRadius:4
+        borderRadius:10,
+        paddingVertical:10,
+        paddingHorizontal:70,
+        
 
-    }
+    },
+    title:{
+        color: "white",
+        fontFamily: 'serif',
+        fontWeight:'bold',
+        fontSize:70,
+        marginTop:30,
+        marginBottom:150,
+        letterSpacing:20,
+      },
 
   });
   
