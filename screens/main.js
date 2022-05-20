@@ -16,9 +16,10 @@ const Main=()=>{
     
 
     const [Player,setPlayer]=useState([
-      
-        {Name:'呂修一', Number:'2',Height:170,Weight:60,key:2},
-        {Name:'簡伯松', Number:'1',Height:160,Weight:50,key:1},
+        {Name:'高高高', Number:'4',Height:180,Weight:60,key:4},
+        {Name:'黃凱峻', Number:'3',Height:170,Weight:60,key:3},
+        {Name:'呂修一', Number:'2',Height:200,Weight:40,key:2},
+        {Name:'簡伯松', Number:'1',Height:170,Weight:65,key:1},
        
     ]);  
 

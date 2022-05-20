@@ -18,7 +18,7 @@ export default class  Splash extends Component{
             <View style={[GlobalStyle.container,styles.splash,]}>
             
               
-                <Animatable.View  animation="rotate" duration='1000' iterationCount='infinite' direction="alternate">
+                <Animatable.View  animation="rotate" duration={1000} iterationCount='infinite' direction="alternate">
                 <FontAwesome5 name="basketball-ball" size={200} color="red" />
                 </Animatable.View> 
                 

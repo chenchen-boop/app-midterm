@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "midterm",
-    "slug": "midterm",
+    "name": "110919008_midterm",
+    "slug": "110919008_midterm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "籃球記憶"
   }
 }
