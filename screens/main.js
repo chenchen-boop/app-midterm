@@ -1,35 +1,56 @@
 import {StyleSheet,View,Button,Text,SafeAreaView,Pressable,FlatList,Modal,TouchableWithoutFeedback, Keyboard,Image,ScrollView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import{ useState } from 'react';
 import {  TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import CreatePlayer from './createplayer';
-import GlobalStyle from '../styles/global'
-
-  
+import GlobalStyle from '../styles/global';
+import { useDispatch, useSelector } from "react-redux";
+import { selectPlayer } from '../src/redux/playerSlice';
+import { selectModal,setModalOpen } from '../src/redux/settingSlice';
 
 const Main=()=>{
-    const navigation = useNavigation(); 
-    const [modalOpen, setModalOpen] = useState(false);
+    const navigation = useNavigation();
+
+    const modal=useSelector(selectModal);
+    // const {modalOpen}=useSelector((state)=>state.setting.modal);
+    //const [ModalOpen, setmodalopen] = useState(modal.modalOpen);
     
-
-    const [Player,setPlayer]=useState([
-        {Name:'高高高', Number:'4',Height:180,Weight:60,key:4},
-        {Name:'黃凱峻', Number:'3',Height:170,Weight:60,key:3},
-        {Name:'呂修一', Number:'2',Height:200,Weight:40,key:2},
-        {Name:'簡伯松', Number:'1',Height:170,Weight:65,key:1},
+    const player=useSelector(selectPlayer);
+    const dispatch=useDispatch();
+    //const player=useSelector(selectPlayer);
+    
+    //const [Player,setPlayer]=useState(player);
+     
+    
+    //    [
+    //     {Name:'高高高', Number:'4',Height:180,Weight:60,key:4},
+    //     {Name:'黃凱峻', Number:'3',Height:170,Weight:60,key:3},
+    //     {Name:'呂修一', Number:'2',Height:200,Weight:40,key:2},
+    //     {Name:'簡伯松', Number:'1',Height:170,Weight:65,key:1},
+    //    ]
        
-    ]);  
+   
+    //    useEffect(()=>{
+    // // // // //  dispatch(setPlayerInfo({name,number,height,weight}));
+    // //       console.log(Player);
+    // // // // },[player]);
+    // // // // useEffect(()=>{
+    //      console.log(ModalOpen);
+    //     dispatch(setModalOpen(ModalOpen));
+        
+    //    },[ModalOpen]);
 
-    const addPlayer=(player)=>{
-        player.key=Math.random().toString();
-        setPlayer((currentPlayers)=>{
-            return[ player,...currentPlayers];
-        });
-          setModalOpen(false);
-    };
+
+    // const addPlayer=(newplayer)=>{
+    //     newplayer.key=Math.random().toString();
+    //     setPlayer((currentPlayers)=>{
+    //         return[ newplayer,...currentPlayers];
+    //     });
+    //       setModalOpen(false);
+    // };
       
     
 
@@ -73,12 +94,13 @@ const Main=()=>{
                         name='add' 
                         size={24} 
                         style={styles.modalToggle}
-                        onPress={() => setModalOpen(true)} 
+                        onPress={() => dispatch(setModalOpen(true))} 
                      /> 
             </View>
                 <FlatList
+                   
                     style={{marginBottom:100}}
-                    data={Player}
+                    data={player}
                     renderItem={({item})=>(
                         <View  >
                             <View style={{justifyContent: 'center',flexDirection:'row'}}>
@@ -100,16 +122,17 @@ const Main=()=>{
         
 
                 <View>
-                    <Modal visible={modalOpen} animationType='slide'>
+                    <Modal visible={modal. modalOpen} animationType='slide'>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={styles.modalContent}>
                                 <MaterialIcons 
                                 name='close'
                                 size={24} 
                                 style={{...styles.modalToggle, ...styles.modalClose}} 
-                                onPress={() => setModalOpen(false)} 
+                                onPress={() => dispatch(setModalOpen(false))} 
                                 />
-                                <CreatePlayer addPlayer={addPlayer} />
+                                {/* <CreatePlayer addPlayer={addPlayer} /> */}
+                                <CreatePlayer/>
                             </View>
                         </TouchableWithoutFeedback>
                     </Modal>

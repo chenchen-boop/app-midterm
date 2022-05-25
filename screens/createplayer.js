@@ -1,22 +1,66 @@
-import React from 'react'
-import { StyleSheet,Button,TextInput,View,Text } from 'react-native'
-import { Formik } from 'formik'
-import GlobalStyle from '../styles/global'
+import React, { useEffect } from 'react';
+import { StyleSheet,Button,TextInput,View,Text } from 'react-native';
+import { Formik } from 'formik';
+import GlobalStyle from '../styles/global';
+import { useDispatch, useSelector } from "react-redux";
+import { setPlayerInfo ,todoAdded} from '../src/redux/playerSlice';
+import{ useState } from 'react';
+import { selectPlayer} from '../src/redux/playerSlice';
+import { selectModal, setModalOpen } from '../src/redux/settingSlice';
+
+const CreatePlayer=()=>{
+    const player=useSelector(selectPlayer);
+    // const Modal=useSelector(selectModal);
+    // const [modalOpen, setModalOpen] = useState(Modal.modalOpen);
+    
+    //const {test}=useSelector((state)=>state.player);
+    // const [name, setName] = useState(player.Name);
+    // const [number, setNumber] = useState(player.number);
+    // const [height, setHeight] = useState(player.height);
+    // const [weight, setWeight] = useState(player.weight);
+
+    const dispatch = useDispatch();
+
+    // const addPlayer=(newplayer)=>{
+    //     newplayer.key=Math.random().toString();
+    //     // dispatch(setPlayerInfo((currentPlayers)=>{
+    //     //     return[ newplayer,...currentPlayers];
+    //     //     }));
+    //     dispatch(setPlayerInfo(newplayer));
+    //     // console.log(newplayer);
+    //       //setModalOpen(false);
+    // };
+
+//  useEffect(()=>{
+//       dispatch(setModalOpen(modalOpen));
+
+//   },[modalOpen]);
 
 
 
-const CreatePlayer=({addPlayer})=>{
+
+
+
     return(
         <View>
             
             
             
             <Formik
-                initialValues={{Name:'',Number:'',Height:'',Weight:''}}
+                initialValues={{Name:'',Number:'',Height:'',Weight:'',key:''}}
                 onSubmit={(values,actions)=>{
-                    addPlayer(values);
+                    // addPlayer(values);
+                    values.key=Math.random().toString();
+                    // dispatch(todoAdded({Name:values.Name,Number:values.Number,Height:values.Height,Weight:values.Weight,key:values.key }));
+                    // dispatch(setPlayerInfo({values}));
+                    dispatch(todoAdded(values));
+                    //setModalOpen(false);
+                    dispatch(dispatch(setModalOpen(false)));
                     actions.resetForm();
-                    console.log(values); 
+                    console.log(values);
+                    
+                    // console.log(player[0]); 
+                    
 
                 }}
             >
@@ -25,6 +69,7 @@ const CreatePlayer=({addPlayer})=>{
                         <TextInput
                             placeholder='Name'
                             onChangeText={props.handleChange('Name')}
+                            //onChangeText={text => setName(text)}
                             value={props.values.Name}
                             style={GlobalStyle.input}
                             
@@ -32,6 +77,7 @@ const CreatePlayer=({addPlayer})=>{
                         <TextInput
                             placeholder='Number'
                             onChangeText={props.handleChange('Number')}
+                            //onChangeText={text => setNumber(text)}
                             value={props.values.Number}
                             style={GlobalStyle.input}
                             keyboardType='numeric'
@@ -39,6 +85,7 @@ const CreatePlayer=({addPlayer})=>{
                         <TextInput
                             placeholder='Height'
                             onChangeText={props.handleChange('Height')}
+                            //onChangeText={text => setHeight(text)}
                             value={props.values.Height}
                             style={GlobalStyle.input}
                             keyboardType='numeric'
@@ -46,6 +93,7 @@ const CreatePlayer=({addPlayer})=>{
                         <TextInput
                             placeholder='Weight'
                             onChangeText={props.handleChange('Weight')}
+                            //onChangeText={text => setWeight(text)}
                             value={props.values.Weight}
                             style={GlobalStyle.input}
                             keyboardType='numeric'

@@ -1,38 +1,63 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
+// const addItemToArray = (state, action) => {
+//     state.push(action.payload);
+// };
+
 const initialState={
-  player:{
-    name: '',
-    number:'',
-    height:'',
-    weight:'',
-  },
-  login:{
-    hasLogin:false,
-  }
+  player:[
+    {
+      Name: 'cc',
+      Number:'1',
+      Height:'170',
+      Weight:'60',
+      key:'1',
+    },
+    {
+      Name: 'bb',
+      Number:'1',
+      Height:'170',
+      Weight:'60',
+      key:'2',
+    }
+  ]
+
+
+
 };
+
+
+
+
+
 const playerSlice = createSlice({
   name: "player",
-  initialState, 
+  initialState,
 
   reducers: {
-    setPlayerInfo: (state,action) => {
-      state.player=action.payload;
+    // todoAdded: addItemToArray,
+    todoAdded: (state, action) =>{
+       
+        //state.player.push(action.payload);
+        state.player.push(action.payload);
+        
+
     },
 
-    login:(state)=>{
-      state.login.hasLogin=true;
-    },
+    // setPlayerInfo: (state,action) => {
+    //   state.player=action.payload;
+    // },
+   
 
-    logout:(state)=>{
-      state.login.hasLogin=false;
-    },
+   
     
   }
 });
 
 // Action creators are generated for each case reducer function
-// export const selectPlayer=(state)=>state.player.player;
-export const {setPlayerInfo,login,logout} = playerSlice.actions;
+export const selectPlayer=(state)=>state.player.player;
+export const {todoAdded} = playerSlice.actions;
 
 export default playerSlice.reducer;
