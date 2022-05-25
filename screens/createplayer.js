@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPlayerInfo ,todoAdded} from '../src/redux/playerSlice';
 import{ useState } from 'react';
 import { selectPlayer} from '../src/redux/playerSlice';
-import { selectModal, setModalOpen } from '../src/redux/settingSlice';
+import { selectModal, setCreatePlayerModalOpen } from '../src/redux/settingSlice';
 
 const CreatePlayer=()=>{
     const player=useSelector(selectPlayer);
@@ -55,7 +55,7 @@ const CreatePlayer=()=>{
                     // dispatch(setPlayerInfo({values}));
                     dispatch(todoAdded(values));
                     //setModalOpen(false);
-                    dispatch(dispatch(setModalOpen(false)));
+                    dispatch(dispatch(setCreatePlayerModalOpen(false)));
                     actions.resetForm();
                     console.log(values);
                     

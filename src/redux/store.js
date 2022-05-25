@@ -27,11 +27,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import playerReducer from './playerSlice';
 import settingReducer from "./settingSlice";
+import gameReducer from "./gameSlice";
 
 export  const store= configureStore({
       reducer: {
         player:playerReducer,
-        setting:settingReducer
+        setting:settingReducer,
+        game:gameReducer,
       }
     
 });

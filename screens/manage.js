@@ -6,24 +6,31 @@ import {  TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import CreateRival from './createrival';
-import GlobalStyle from '../styles/global'
+import GlobalStyle from '../styles/global';
+import { useDispatch, useSelector } from "react-redux";
+import { selectGame } from '../src/redux/gameSlice';
+import {setCreateGameModalOpen,selectModal} from '../src/redux/settingSlice';
+//import { selectModal,setModalOpen } from '../src/redux/settingSlice';
 
 
 
 const Manage=()=>{
     const navigation = useNavigation(); 
-    const [modalOpen, setModalOpen] = useState(false);
+    //const [modalOpen, setModalOpen] = useState(false);
+    const modal=useSelector(selectModal);
+    // const [Rival,setRival]=useState([
+    //    {Date:'4/16',Type:'友誼賽',Name:'教育系',key:'1'}
+    // ]);  
+    const game=useSelector(selectGame);
+    const dispatch=useDispatch();
 
-    const [Rival,setRival]=useState([
-       {Date:'4/16',Type:'友誼賽',Name:'教育系',key:'1'}
-    ]);  
-    const addRival=(Rival)=>{
-        Rival.key=Math.random().toString();
-        setRival((currentRivals)=>{
-            return[ Rival,...currentRivals];
-        });
-          setModalOpen(false);
-    };
+    // const addRival=(Rival)=>{
+    //     Rival.key=Math.random().toString();
+    //     setRival((currentRivals)=>{
+    //         return[ Rival,...currentRivals];
+    //     });
+    //       setModalOpen(false);
+    // };
       
 
     
@@ -41,11 +48,11 @@ const Manage=()=>{
                     name='add' 
                     size={24} 
                     style={styles.modalToggle}
-                    onPress={() => setModalOpen(true)} 
+                    onPress={() =>dispatch(setCreateGameModalOpen(true))} 
                 />
 
             <FlatList
-                data={Rival}
+                data={game}
                 renderItem={({item})=>(
                     <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
                         <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Date}</Text>
@@ -61,16 +68,17 @@ const Manage=()=>{
                 )}
             />
             <View>
-                <Modal visible={modalOpen} animationType='slide'>
+                <Modal visible={modal.createGameModalOpen} animationType='slide'>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View style={styles.modalContent}>
                             <MaterialIcons 
                             name='close'
                             size={24} 
                             style={{...styles.modalToggle, ...styles.modalClose}} 
-                            onPress={() => setModalOpen(false)} 
+                            onPress={() => dispatch(setCreateGameModalOpen(false))} 
                             />
-                            <CreateRival addRival={addRival} />
+                            {/* <CreateRival addRival={addRival} /> */}
+                            <CreateRival/>
                         </View>
                     </TouchableWithoutFeedback>
                 </Modal>

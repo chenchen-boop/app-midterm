@@ -2,18 +2,24 @@ import React from 'react'
 import { StyleSheet,Button,TextInput,View,Text } from 'react-native'
 import { Formik } from 'formik'
 import GlobalStyle from '../styles/global'
+import { useDispatch, useSelector } from "react-redux";
+import { todoAdded } from '../src/redux/gameSlice';
+import { setCreateGameModalOpen } from '../src/redux/settingSlice';
 
+const CreateRival=()=>{
+    const dispatch = useDispatch();
 
-
-const CreateRival=({addRival})=>{
     return(
         <View>
             
             <Formik
-                initialValues={{Date:'',Type:'',Name:''}}
+                initialValues={{Date:'',Type:'',Name:'',key:''}}
                 onSubmit={(values,actions)=>{
-                    addRival(values);
+                    // addRival(values);
+                    values.key=Math.random().toString();
+                    dispatch(todoAdded(values));
                     actions.resetForm();
+                    dispatch(setCreateGameModalOpen(false));
                     
 
                 }}

@@ -9,7 +9,7 @@ import CreatePlayer from './createplayer';
 import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
 import { selectPlayer } from '../src/redux/playerSlice';
-import { selectModal,setModalOpen } from '../src/redux/settingSlice';
+import { selectModal,setCreatePlayerModalOpen } from '../src/redux/settingSlice';
 
 const Main=()=>{
     const navigation = useNavigation();
@@ -94,7 +94,7 @@ const Main=()=>{
                         name='add' 
                         size={24} 
                         style={styles.modalToggle}
-                        onPress={() => dispatch(setModalOpen(true))} 
+                        onPress={() => dispatch(setCreatePlayerModalOpen(true))} 
                      /> 
             </View>
                 <FlatList
@@ -122,14 +122,14 @@ const Main=()=>{
         
 
                 <View>
-                    <Modal visible={modal. modalOpen} animationType='slide'>
+                    <Modal visible={modal.createPlayerModalOpen} animationType='slide'>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={styles.modalContent}>
                                 <MaterialIcons 
                                 name='close'
                                 size={24} 
                                 style={{...styles.modalToggle, ...styles.modalClose}} 
-                                onPress={() => dispatch(setModalOpen(false))} 
+                                onPress={() => dispatch(setCreatePlayerModalOpen(false))} 
                                 />
                                 {/* <CreatePlayer addPlayer={addPlayer} /> */}
                                 <CreatePlayer/>

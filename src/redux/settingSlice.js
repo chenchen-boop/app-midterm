@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     modal:{
-        modalOpen:false,
+        createPlayerModalOpen:false,
+        createGameModalOpen:false,
     }
         
     
@@ -12,9 +13,14 @@ const settingSlice=createSlice({
     name:"setting",
     initialState,
     reducers:{
-        setModalOpen:(state,action)=>{
-            state.modal.modalOpen=action.payload;
-        }
+        setCreatePlayerModalOpen:(state,action)=>{
+            state.modal.createPlayerModalOpen=action.payload;
+        },
+        setCreateGameModalOpen:(state,action)=>{
+            state.modal.createGameModalOpen=action.payload;
+        },
+        
+
 
 
     }
@@ -25,5 +31,5 @@ const settingSlice=createSlice({
 
 });
 export const selectModal=(state)=>state.setting.modal;
-export const {setModalOpen}=settingSlice.actions;
+export const {setCreatePlayerModalOpen,setCreateGameModalOpen}=settingSlice.actions;
 export default settingSlice.reducer;
