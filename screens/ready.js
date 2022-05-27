@@ -1,9 +1,10 @@
 import React from 'react';
 import { View ,Text,StyleSheet,Pressable,Alert} from "react-native";
-import GlobalStyle from '../styles/global'
+import GlobalStyle from '../styles/global';
+import { useNavigation } from '@react-navigation/native';
 
 const Ready=({route})=>{
-    
+    const navigation=useNavigation();
     const { Date,Name,Type } = route.params;
    
     return(
@@ -15,7 +16,7 @@ const Ready=({route})=>{
             <Text style={[GlobalStyle.text,styles.MainText]}>VS</Text>
             <Text style={[GlobalStyle.text,styles.text,styles.redtext]}>{Name}</Text>
             <Text style={[GlobalStyle.text,styles.MainText]}>{Date}</Text>
-            <Pressable onPress={()=>Alert.alert('comming soon')}>
+            <Pressable onPress={()=>navigation.navigate('Starter')}>
                 <Text style={[GlobalStyle.text,GlobalStyle.btn]} >記錄自己數據</Text>
             </Pressable>
             <Pressable 

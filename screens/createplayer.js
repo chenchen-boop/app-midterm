@@ -5,11 +5,13 @@ import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayerInfo ,todoAdded} from '../src/redux/playerSlice';
 import{ useState } from 'react';
-import { selectPlayer} from '../src/redux/playerSlice';
+import { selectPlayer,selectAmount,setAmount} from '../src/redux/playerSlice';
 import { selectModal, setCreatePlayerModalOpen } from '../src/redux/settingSlice';
 
 const CreatePlayer=()=>{
     const player=useSelector(selectPlayer);
+    const amount=useSelector(selectAmount);
+    //const [keyStartNumber,setKeyStartNumber]=useState(2);
     // const Modal=useSelector(selectModal);
     // const [modalOpen, setModalOpen] = useState(Modal.modalOpen);
     
@@ -50,7 +52,9 @@ const CreatePlayer=()=>{
                 initialValues={{Name:'',Number:'',Height:'',Weight:'',key:''}}
                 onSubmit={(values,actions)=>{
                     // addPlayer(values);
-                    values.key=Math.random().toString();
+                    //values.key=Math.random().toString();
+                    values.key=amount;
+                    dispatch(setAmount());
                     // dispatch(todoAdded({Name:values.Name,Number:values.Number,Height:values.Height,Weight:values.Weight,key:values.key }));
                     // dispatch(setPlayerInfo({values}));
                     dispatch(todoAdded(values));

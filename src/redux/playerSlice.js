@@ -13,16 +13,20 @@ const initialState={
       Number:'1',
       Height:'170',
       Weight:'60',
-      key:'1',
+      Starter:true,
+      key:0,
     },
     {
       Name: 'bb',
       Number:'1',
       Height:'170',
       Weight:'60',
-      key:'2',
+      Starter:true,
+      key:1,
     }
-  ]
+  ],
+  amount:2
+
 
 
 
@@ -45,6 +49,19 @@ const playerSlice = createSlice({
         
 
     },
+    del:{
+
+    },
+    setPlayer:(state,action)=>{
+      // return state.player.filter(({value})=>value.Starter=action.payload);
+      //state.player[action.payload].Starter=!state.player[action.payload].Starter;
+      state.player[action.payload].Starter=!state.player[action.payload].Starter;
+    
+    },
+    setAmount:(state)=>{
+      state.amount+=1;
+
+    }
 
     // setPlayerInfo: (state,action) => {
     //   state.player=action.payload;
@@ -58,6 +75,7 @@ const playerSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const selectPlayer=(state)=>state.player.player;
-export const {todoAdded} = playerSlice.actions;
+export const selectAmount=(state)=>state.player.amount;
+export const {todoAdded,setPlayer,setAmount} = playerSlice.actions;
 
 export default playerSlice.reducer;

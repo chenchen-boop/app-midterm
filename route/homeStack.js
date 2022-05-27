@@ -8,6 +8,8 @@ import Manage from '../screens/manage';
 import CreatePlayer from '../screens/createplayer';
 import Ready from '../screens/ready';
 import Splash from '../screens/splash';
+import Starter from '../screens/starter';
+
 import { HeaderTitle } from 'react-navigation-stack';
 const Stack =createNativeStackNavigator();
 
@@ -19,13 +21,15 @@ const HomeStack=()=>{
        
             <Stack.Navigator screenOptions={{headerShown:true, headerTitleAlign: 'center'}}>
                 <Stack.Group> 
-                    <Stack.Screen name='Splash' component={Splash} options={{headerShown: false}}/>
-                    <Stack.Screen name='Home' component={Home} options={{headerBackVisible: false}}/>
-                    <Stack.Screen name='Login' component={Login} />
-                    <Stack.Screen name='Main' component={Main}/>
+                    <Stack.Screen name='Splash' component={Splash} options={{headerShown: false,orientation: 'portrait'}}/>
+                    <Stack.Screen name='Home' component={Home} options={{headerBackVisible: false,orientation: 'portrait'}}/>
+                    <Stack.Screen name='Login' component={Login} options={{orientation: 'portrait'}} />
+                    <Stack.Screen name='Main' component={Main} options={{orientation: 'portrait'}}/>
                     {/* <Stack.Screen name='CreatePlayer' component={CreatePlayer}/> */}
-                    <Stack.Screen name='Manage' component={Manage}/>
-                    <Stack.Screen name='Ready' component={Ready}/>
+                    <Stack.Screen name='Manage' component={Manage} options={{orientation: 'portrait'}}/>
+                    <Stack.Screen name='Ready' component={Ready} options={{orientation: 'portrait'}}/>
+                    <Stack.Screen name='Starter' component={Starter}  options={{orientation: 'landscape'}}/>
+                    
                 </Stack.Group>
             </Stack.Navigator>
        
