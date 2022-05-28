@@ -75,8 +75,15 @@ const playerSlice = createSlice({
         
 
     },
-    del:{
-
+    del:(state,{payload})=>{
+    //  return state.player.filter((item)=>item.key!=payload);
+    state.player.splice(payload,1);
+    state.player.forEach((item,index)=>{item.key=index});
+     
+    // }
+     
+  //  state.player.filter((item)=>console.log(item.key));
+      
     },
     setPlayer:(state,action)=>{
       // return state.player.filter(({value})=>value.Starter=action.payload);
@@ -102,6 +109,6 @@ const playerSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const selectPlayer=(state)=>state.player.player;
 export const selectAmount=(state)=>state.player.amount;
-export const {todoAdded,setPlayer,setAmount} = playerSlice.actions;
+export const {todoAdded,setPlayer,setAmount,del} = playerSlice.actions;
 
 export default playerSlice.reducer;

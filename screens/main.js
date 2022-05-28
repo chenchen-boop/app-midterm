@@ -1,5 +1,4 @@
 import {StyleSheet,View,Button,Text,SafeAreaView,Pressable,FlatList,Modal,TouchableWithoutFeedback, Keyboard,Image,ScrollView} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import React, { Component, useEffect } from 'react';
 import{ useState } from 'react';
 import {  TextInput } from 'react-native-gesture-handler';
@@ -8,9 +7,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CreatePlayer from './createplayer';
 import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
-import { selectPlayer } from '../src/redux/playerSlice';
+import { selectPlayer ,del} from '../src/redux/playerSlice';
 import { selectModal,setCreatePlayerModalOpen } from '../src/redux/settingSlice';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { AntDesign } from '@expo/vector-icons';
 const Main=()=>{
     const navigation = useNavigation();
 
@@ -108,7 +108,10 @@ const Main=()=>{
                             <Text style={styles.item}>{item.Name}</Text>
                             <Text style={styles.item}>{item.Height}</Text>
                             <Text style={styles.item}>{item.Weight}</Text>
-                                
+                            <Pressable onPress={()=>dispatch(del(item.key))}>
+                            {/* <Pressable onPress={()=>console.log(item.key)}> */}
+                                <AntDesign name="delete" size={40} color="black" />
+                            </Pressable>    
                         </View>
                         
                 
