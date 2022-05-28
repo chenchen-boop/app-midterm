@@ -13,7 +13,7 @@ const CreateRival=()=>{
         <View>
             
             <Formik
-                initialValues={{Date:'',Type:'',Name:'',key:''}}
+                initialValues={{Date:'',Type:'',Name:'',Time:'',key:''}}
                 onSubmit={(values,actions)=>{
                     // addRival(values);
                     values.key=Math.random().toString();
@@ -43,6 +43,12 @@ const CreateRival=()=>{
                             placeholder='Name'
                             onChangeText={props.handleChange('Name')}
                             value={props.values.Name}
+                            style={GlobalStyle.input}
+                        />
+                        <TextInput
+                            placeholder='Time'
+                            onChangeText={props.handleChange('Time')}
+                            value={props.values.Time}
                             style={GlobalStyle.input}
                         />
                         

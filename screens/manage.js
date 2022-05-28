@@ -36,13 +36,14 @@ const Manage=()=>{
     
     return(
             
-        <View style={[styles.container]}>
-            <View style={{flexDirection: "row",justifyContent: 'center'}}>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>日期</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>性質</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>對手</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>數據控制</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>數據</Text>
+        <View style={styles.container}>
+            <View style={{flexDirection: "row",justifyContent: 'space-around'}}>
+                    <Text style={styles.itemTitle}>日期</Text>
+                    <Text style={styles.itemTitle}>性質</Text>
+                    <Text style={styles.itemTitle}>對手</Text>
+                    <Text style={styles.itemTitle}>單節時間</Text>
+                    <Text style={styles.itemTitle}>數據控制</Text>
+                    <Text style={styles.itemTitle}>數據</Text>
             </View>
             <MaterialIcons 
                     name='add' 
@@ -54,10 +55,11 @@ const Manage=()=>{
             <FlatList
                 data={game}
                 renderItem={({item})=>(
-                    <View style={{flexDirection: "row" ,justifyContent: 'center',}}>
-                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Date}</Text>
-                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Type}</Text>
-                        <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,marginHorizontal:30}}>{item.Name}</Text>
+                    <View style={{flexDirection: "row" ,justifyContent: 'space-around',}}>
+                        <Text style={styles.item}>{item.Date}</Text>
+                        <Text style={styles.item}>{item.Type}</Text>
+                        <Text style={styles.item}>{item.Name}</Text>
+                        <Text style={styles.item}>{item.Time}</Text>
                         <Pressable  onPress={()=>navigation.navigate('Ready',item) } style={[GlobalStyle.btn,styles.btn]} >
                             <Text  style={GlobalStyle.text}>數據控制</Text>
                         </Pressable>
@@ -91,6 +93,34 @@ const Manage=()=>{
 
 
 const styles = StyleSheet.create({
+    container:{
+        // width:500,
+        flex:1,
+        paddingHorizontal:50,
+        paddingTop:50,
+        paddingBottom:200,
+        height:1100,
+        // width:500,
+    },
+    itemTitle:{
+        // width:100,
+        borderWidth:1 ,
+        margin:20,
+        fontSize:20,
+        padding:10,
+        // paddingHorizontal:20
+    },
+    item:{
+        // width:100,
+        borderWidth:1 ,
+        margin:20,
+        fontSize:20,
+        padding:10,
+        marginHorizontal:30
+    },
+    btn:{
+        paddingHorizontal:16
+    },
     modalToggle: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -108,14 +138,7 @@ const styles = StyleSheet.create({
     modalContent: {
       flex: 1,
     },
-    container:{
-        paddingTop:100,
-        paddingBottom:200,
-        height:1100
-    },
-    btn:{
-        paddingHorizontal:16
-    }
+    
   });
 
 

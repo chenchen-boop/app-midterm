@@ -9,7 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
   player:[
     {
-      Name: 'cc',
+      Name: 'aa',
       Number:'1',
       Height:'170',
       Weight:'60',
@@ -18,14 +18,40 @@ const initialState={
     },
     {
       Name: 'bb',
-      Number:'1',
+      Number:'2',
       Height:'170',
       Weight:'60',
       Starter:true,
       key:1,
-    }
+    },
+    {
+      Name: 'cc',
+      Number:'3',
+      Height:'170',
+      Weight:'60',
+      Starter:true,
+      key:2,
+    },
+    {
+      Name: 'dd',
+      Number:'4',
+      Height:'170',
+      Weight:'60',
+      Starter:true,
+      key:3,
+    },
+    {
+      Name: 'ee',
+      Number:'5',
+      Height:'170',
+      Weight:'60',
+      Starter:true,
+      key:4,
+    },
+    
+
   ],
-  amount:2
+  amount:5 //keyStartNumber 
 
 
 

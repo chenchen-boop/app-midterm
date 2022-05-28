@@ -5,6 +5,7 @@ const initialState={
         Date:'123',
         Type:'a',
         Name:'a',
+        Time:10,
         key:'1',
     }]
 
@@ -19,6 +20,10 @@ const gameSlice=createSlice({
             state.game.push(action.payload);
         
         },
+        //setGame:(state,action)=>
+        //{
+            // state.game[action.payload[0]].Time=action.payload[1];
+        //}
 
     }
 

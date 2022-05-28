@@ -10,7 +10,7 @@ import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
 import { selectPlayer } from '../src/redux/playerSlice';
 import { selectModal,setCreatePlayerModalOpen } from '../src/redux/settingSlice';
-
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 const Main=()=>{
     const navigation = useNavigation();
 
@@ -84,10 +84,10 @@ const Main=()=>{
                        
             </View>
             <View style={{flexDirection: "row",justifyContent: 'center'}}>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>背號</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10,paddingHorizontal:20}}>姓名</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>身高 (cm)</Text>
-                    <Text style={{borderWidth:1 ,margin:20,fontSize:20,padding:10}}>體重 (kg)</Text>
+                    <Text style={styles.itemTitle}>背號</Text>
+                    <Text style={styles.itemTitle}>姓名</Text>
+                    <Text style={styles.itemTitle}>身高 (cm)</Text>
+                    <Text style={styles.itemTitle}>體重 (kg)</Text>
             </View>
             <View>
                     <MaterialIcons 
@@ -95,28 +95,25 @@ const Main=()=>{
                         size={24} 
                         style={styles.modalToggle}
                         onPress={() => dispatch(setCreatePlayerModalOpen(true))} 
-                     /> 
+                    /> 
             </View>
                 <FlatList
                    
                     style={{marginBottom:100}}
                     data={player}
                     renderItem={({item})=>(
-                        <View  >
-                            <View style={{justifyContent: 'center',flexDirection:'row'}}>
-                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Number}</Text>
-                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Name}</Text>
-                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Height}</Text>
-                                <Text style={{borderWidth:1 ,fontSize:20,padding:10,marginHorizontal:30,marginBottom:10}}>{item.Weight}</Text>
+            
+                        <View style={styles.itemContainer}>
+                            <Text style={styles.item}>{item.Number}</Text>
+                            <Text style={styles.item}>{item.Name}</Text>
+                            <Text style={styles.item}>{item.Height}</Text>
+                            <Text style={styles.item}>{item.Weight}</Text>
                                 
-                            </View>
                         </View>
-                   
-
-
+                        
+                
                     )}
-                
-                
+        
                 />
            
         
@@ -151,6 +148,35 @@ const styles = StyleSheet.create({
         height:1100
         // backgroundColor:'gray'
     },
+    itemTitle:{
+        borderWidth:1 ,
+        margin:20,
+        fontSize:20,
+        padding:10
+    },
+    itemContainer:{
+        backgroundColor:'gray',
+        justifyContent: 'center',
+        flexDirection:'row',
+        marginHorizontal:40,
+        marginBottom:20,
+        borderRadius:10,
+        paddingTop:10
+        // alignItems:'stretch'
+       // backgroundColor:'gray',
+        
+    },
+    item:{
+       
+        borderWidth:1 ,
+        fontSize:20,
+        padding:10,
+        marginHorizontal:30,
+        marginBottom:20
+
+    },
+    
+
     modalToggle: {
       justifyContent: 'center',
       alignItems: 'center',
