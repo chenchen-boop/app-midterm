@@ -53,8 +53,11 @@ const CreatePlayer=()=>{
                 onSubmit={(values,actions)=>{
                     // addPlayer(values);
                     //values.key=Math.random().toString();
-                    values.key=amount;
-                    dispatch(setAmount());
+                   
+                   
+                   
+                    values.key=player.length;
+                    
                     // dispatch(todoAdded({Name:values.Name,Number:values.Number,Height:values.Height,Weight:values.Weight,key:values.key }));
                     // dispatch(setPlayerInfo({values}));
                     dispatch(todoAdded(values));

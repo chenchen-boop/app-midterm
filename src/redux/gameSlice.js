@@ -6,8 +6,11 @@ const initialState={
         Type:'a',
         Name:'a',
         Time:10,
-        key:'1',
-    }]
+        ScoreHome:0,
+        ScoreAway:0,
+        key:'0',
+    }],
+    whichGame:0,
 
 };
 
@@ -20,6 +23,9 @@ const gameSlice=createSlice({
             state.game.push(action.payload);
         
         },
+        setWhichGame:(state,{payload})=>{
+            state.whichGame=payload;
+        }
         //setGame:(state,action)=>
         //{
             // state.game[action.payload[0]].Time=action.payload[1];
@@ -30,5 +36,6 @@ const gameSlice=createSlice({
 
 });
 export const selectGame=(state)=>state.game.game;
-export const {todoAdded}=gameSlice.actions;
+export const selectWhichGame=(state)=>state.game.whichGame;
+export const {todoAdded,setWhichGame}=gameSlice.actions;
 export default gameSlice.reducer;

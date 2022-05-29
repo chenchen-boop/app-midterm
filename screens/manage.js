@@ -8,7 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CreateRival from './createrival';
 import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
-import { selectGame } from '../src/redux/gameSlice';
+import { selectGame, setWhichGame } from '../src/redux/gameSlice';
 import {setCreateGameModalOpen,selectModal} from '../src/redux/settingSlice';
 //import { selectModal,setModalOpen } from '../src/redux/settingSlice';
 
@@ -60,7 +60,12 @@ const Manage=()=>{
                         <Text style={styles.item}>{item.Type}</Text>
                         <Text style={styles.item}>{item.Name}</Text>
                         <Text style={styles.item}>{item.Time}</Text>
-                        <Pressable  onPress={()=>navigation.navigate('Ready',item) } style={[GlobalStyle.btn,styles.btn]} >
+                        <Pressable  onPress={()=>{
+                            navigation.navigate('Ready',item);
+                            dispatch(setWhichGame(item.key));
+
+                        }} 
+                            style={[GlobalStyle.btn,styles.btn]} >
                             <Text  style={GlobalStyle.text}>數據控制</Text>
                         </Pressable>
                         <Pressable onPress={()=>Alert.alert("Comming Soon")} style={[GlobalStyle.btn,styles.btn]}>

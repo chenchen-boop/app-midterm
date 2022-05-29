@@ -7,6 +7,7 @@ import GlobalStyle from '../styles/global';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { setGame } from "../src/redux/gameSlice";
 import { TextInput } from "react-native-gesture-handler";
+import RecordGame from "./recordGame";
 
 const Starter=()=>{
     const navigation = useNavigation();
@@ -58,7 +59,7 @@ const Starter=()=>{
             {/* <Text>{player[0].Name}</Text> */}
             </View>
             <View style={styles.rightContainer}>
-                <Button title="開始比賽"/>
+                <Button title="開始比賽" onPress={()=>navigation.navigate('RecordGame')}/>
                 {/* <Button title="比賽時間" onPress={()=>setModalOpen(true)}/> */}
                 <Button title="管理球員"/>
                 

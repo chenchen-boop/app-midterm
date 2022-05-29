@@ -51,7 +51,7 @@ const initialState={
     
 
   ],
-  amount:5 //keyStartNumber 
+ 
 
 
 
@@ -77,8 +77,8 @@ const playerSlice = createSlice({
     },
     del:(state,{payload})=>{
     //  return state.player.filter((item)=>item.key!=payload);
-    state.player.splice(payload,1);
-    state.player.forEach((item,index)=>{item.key=index});
+      state.player.splice(payload,1);
+      state.player.forEach((item,index)=>{item.key=index});
      
     // }
      
@@ -91,11 +91,7 @@ const playerSlice = createSlice({
       state.player[action.payload].Starter=!state.player[action.payload].Starter;
     
     },
-    setAmount:(state)=>{
-      state.amount+=1;
-
-    }
-
+    
     // setPlayerInfo: (state,action) => {
     //   state.player=action.payload;
     // },
