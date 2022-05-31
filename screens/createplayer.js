@@ -3,7 +3,7 @@ import { StyleSheet,Button,TextInput,View,Text } from 'react-native';
 import { Formik } from 'formik';
 import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
-import { setPlayerInfo ,todoAdded} from '../src/redux/playerSlice';
+import { setPlayerInfo ,setTwoPoint,todoAdded} from '../src/redux/playerSlice';
 import{ useState } from 'react';
 import { selectPlayer,selectAmount,setAmount} from '../src/redux/playerSlice';
 import { selectModal, setCreatePlayerModalOpen } from '../src/redux/settingSlice';
@@ -49,12 +49,11 @@ const CreatePlayer=()=>{
             
             
             <Formik
-                initialValues={{Name:'',Number:'',Height:'',Weight:'',key:''}}
+                initialValues={{Name:'',Number:'',Height:'',Weight:'',key:'',Starter:false,Click:false,
+                                Stats:{TwoPoint:[[0,0]],ThreePoint:[[]],FreeThrow:[[]],Drebound:[[]],Orebound:[[]],Assist:[[]],Steal:[[]],TurnOver:[[]],Dfour:[[]],Ofour:[[]]}}}
                 onSubmit={(values,actions)=>{
                     // addPlayer(values);
                     //values.key=Math.random().toString();
-                   
-                   
                    
                     values.key=player.length;
                     

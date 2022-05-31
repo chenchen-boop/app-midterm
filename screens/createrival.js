@@ -22,7 +22,7 @@ const CreateRival=()=>{
                     dispatch(todoAdded(values));
                     actions.resetForm();
                     dispatch(setCreateGameModalOpen(false));
-                    ;
+                    
 
                 }}
             >

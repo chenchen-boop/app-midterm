@@ -8,7 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CreateRival from './createrival';
 import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
-import { selectGame, setWhichGame } from '../src/redux/gameSlice';
+import { selectGame, setWhichGame,delGame } from '../src/redux/gameSlice';
 import {setCreateGameModalOpen,selectModal} from '../src/redux/settingSlice';
 //import { selectModal,setModalOpen } from '../src/redux/settingSlice';
 
@@ -37,7 +37,7 @@ const Manage=()=>{
     return(
             
         <View style={styles.container}>
-            <View style={{flexDirection: "row",justifyContent: 'space-around'}}>
+            <View style={styles.titleContainer}>
                     <Text style={styles.itemTitle}>日期</Text>
                     <Text style={styles.itemTitle}>性質</Text>
                     <Text style={styles.itemTitle}>對手</Text>
@@ -55,7 +55,8 @@ const Manage=()=>{
             <FlatList
                 data={game}
                 renderItem={({item})=>(
-                    <View style={{flexDirection: "row" ,justifyContent: 'space-around',}}>
+                    <View style={styles.itemContainer}>
+
                         <Text style={styles.item}>{item.Date}</Text>
                         <Text style={styles.item}>{item.Type}</Text>
                         <Text style={styles.item}>{item.Name}</Text>
@@ -70,6 +71,9 @@ const Manage=()=>{
                         </Pressable>
                         <Pressable onPress={()=>Alert.alert("Comming Soon")} style={[GlobalStyle.btn,styles.btn]}>
                             <Text  style={GlobalStyle.text}>數據</Text>
+                        </Pressable>
+                        <Pressable onPress={()=>dispatch(delGame(item.key))}>
+                            <AntDesign name="delete" size={40} color="black" />
                         </Pressable>
                     </View>
                 )}
@@ -107,21 +111,48 @@ const styles = StyleSheet.create({
         height:1100,
         // width:500,
     },
+    titleContainer:{
+        flexDirection:'row',
+        justifyContent:'space-around',
+        padding:20,
+        marginBottom:20,
+
+    },
     itemTitle:{
         // width:100,
         borderWidth:1 ,
-        margin:20,
+        marginHorizontal:10,
         fontSize:20,
         padding:10,
         // paddingHorizontal:20
     },
+
+
+    itemContainer:{
+        flexDirection:'row',
+        backgroundColor:'gray',
+        justifyContent: 'space-around',
+        alignItems:'center',
+        
+        marginHorizontal:20,
+        marginBottom:20,
+        borderRadius:10,
+       
+        
+    },
     item:{
-        // width:100,
+        //alignItems:'center',
+       // alignContent:'center',
+        //justifyContent:'center',
+        width:80,
         borderWidth:1 ,
-        margin:20,
+        // margin:20,
+        //paddingHorizontal:20,
+        //paddingVertical:10,
+        height:60,
         fontSize:20,
-        padding:10,
-        marginHorizontal:30
+        
+        marginHorizontal:20
     },
     btn:{
         paddingHorizontal:16

@@ -25,7 +25,12 @@ const gameSlice=createSlice({
         },
         setWhichGame:(state,{payload})=>{
             state.whichGame=payload;
-        }
+        },
+        delGame:(state,{payload})=>{
+              state.game.splice(payload,1);
+              state.game.forEach((item,index)=>{item.key=index});
+             
+            },
         //setGame:(state,action)=>
         //{
             // state.game[action.payload[0]].Time=action.payload[1];
@@ -37,5 +42,5 @@ const gameSlice=createSlice({
 });
 export const selectGame=(state)=>state.game.game;
 export const selectWhichGame=(state)=>state.game.whichGame;
-export const {todoAdded,setWhichGame}=gameSlice.actions;
+export const {todoAdded,setWhichGame,delGame}=gameSlice.actions;
 export default gameSlice.reducer;
