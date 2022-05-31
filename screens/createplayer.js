@@ -50,7 +50,20 @@ const CreatePlayer=()=>{
             
             <Formik
                 initialValues={{Name:'',Number:'',Height:'',Weight:'',key:'',Starter:false,Click:false,
-                                Stats:{TwoPoint:[[0,0]],ThreePoint:[[]],FreeThrow:[[]],Drebound:[[]],Orebound:[[]],Assist:[[]],Steal:[[]],TurnOver:[[]],Dfour:[[]],Ofour:[[]]}}}
+                Stats:{
+                    TwoPoint:[],
+                    ThreePoint:[],
+                    FreeThrow:[],
+                    Drebound:[],
+                    Orebound:[],
+                    Assist:[],
+                    Steal:[],
+                    TurnOver:[],
+                    Dfour:[],
+                    Ofour:[],
+                  },
+
+                }}
                 onSubmit={(values,actions)=>{
                     // addPlayer(values);
                     //values.key=Math.random().toString();

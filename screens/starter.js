@@ -1,10 +1,10 @@
-import { selectPlayer,setPlayer} from "../src/redux/playerSlice";
 import { useSelector,useDispatch } from "react-redux";
 import { useState,useEffect } from "react";
 import {View,Text,FlatList, StyleSheet,Pressable,Button,Modal,TouchableWithoutFeedback, Keyboard,}from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyle from '../styles/global';
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { selectPlayer,setPlayer,addStats} from "../src/redux/playerSlice";
 import { setGame } from "../src/redux/gameSlice";
 import { TextInput } from "react-native-gesture-handler";
 import RecordGame from "./recordGame";
@@ -62,6 +62,7 @@ const Starter=()=>{
             <View style={styles.rightContainer}>
                 <Button title="開始比賽" 
                 onPress={()=>{
+                    dispatch(addStats());
                     navigation.navigate('RecordGame');
                     
                     }

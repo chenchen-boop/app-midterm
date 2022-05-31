@@ -1,14 +1,15 @@
 import React,{ useState } from 'react';
 import {View,Text,StyleSheet,FlatList,Pressable,Image,Button} from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
-import { selectPlayer ,setTwoPoint,setClickPlayer } from '../src/redux/playerSlice';
+import { selectPlayer,setClickPlayer ,setTwoPoint,setThreePoint,setFreeThrow,setRebound,setFoul,setAssist,setSteal,setTurnOver,setBlock} from '../src/redux/playerSlice';
 import {selectGame,selectWhichGame} from '../src/redux/gameSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+
 
 
 
 const RecordGame=()=>{
+    
     const player=useSelector(selectPlayer);
     const game=useSelector(selectGame);
     const whichGame=useSelector(selectWhichGame);
@@ -20,6 +21,36 @@ const RecordGame=()=>{
         
     };
     const [itemClick,setItemClick]=useState();
+
+   
+   
+    const [statsClick,setStatsClick]=useState([ false,false,false,false,
+                                                false,false,false,false,
+                                                false,false,false,false,
+                                                false,false,]);
+   
+
+    const updateStatsClick=(Stats,i)=>{
+        let newStats=[...Stats];
+        newStats[i]=!newStats[i];
+        setStatsClick(newStats);
+
+        Stats.forEach((element,index)=>{
+            if(element&&index!=i){
+                let newStats=[...Stats];
+                newStats[index]=false;
+                newStats[i]=true;
+                setStatsClick(newStats);
+            }
+          
+        });     
+
+    };
+    
+
+
+
+
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -70,6 +101,7 @@ const RecordGame=()=>{
                                     }
                                     
                                     setItemClick(item.key);
+                                    
                                     }}>
                                             
                                 
@@ -89,23 +121,124 @@ const RecordGame=()=>{
                 </View>
             
                 <View style={styles.content}>
-                    <Pressable style={styles.conBtn} onPress={()=>dispatch(setTwoPoint([0,0,0]))}><Text style={styles.btnText}>兩分中</Text></Pressable>
-                    <Pressable style={styles.conBtn} onPress={()=>dispatch(setTwoPoint([0,0,1]))}><Text style={styles.btnText}>兩分不中</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>三分中</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>三分不中</Text></Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[0])}]} onPress={()=>{
+                       
+                        updateStatsClick(statsClick,0);
+                            
+                        if(itemClick!=undefined&&player[itemClick].Click)//先click player
+                            
+                                dispatch(setTwoPoint([whichGame,itemClick,0]))}} /* 0:gamekey,1:playerkey，2:進/不進 */
+                    > 
+                        <Text style={styles.btnText}>兩分中</Text>
+                    </Pressable>
+                                                               
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[1])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,1);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+
+                                dispatch(setTwoPoint([whichGame,itemClick,1]))}}>
+                            <Text style={styles.btnText}>兩分不中</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[2])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,2);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setThreePoint([whichGame,itemClick,0]))}}>
+                            <Text style={styles.btnText}>三分不中</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[3])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,3);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setThreePoint([whichGame,itemClick,1]))}}>
+                            <Text style={styles.btnText}>三分不中</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[4])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,4);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setFreeThrow([whichGame,itemClick,0]))}}>
+                            <Text style={styles.btnText}>罰球中</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[5])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,5);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setFreeThrow([whichGame,itemClick,1]))}}>
+                            <Text style={styles.btnText}>罰球不中</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[6])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,6);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setRebound([whichGame,itemClick,0]))}}>
+                            <Text style={styles.btnText}>防守籃板</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[7])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,7);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setRebound([whichGame,itemClick,1]))}}>
+                            <Text style={styles.btnText}>進攻籃板</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[8])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,8);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setAssist([whichGame,itemClick]))}}>
+                            <Text style={styles.btnText}>助攻</Text>
+                    </Pressable>
+
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[9])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,9);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setTurnOver([whichGame,itemClick]))}}>
+                            <Text style={styles.btnText}>失誤</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[10])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,10);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setSteal([whichGame,itemClick]))}}>
+                            <Text style={styles.btnText}>抄截</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[11])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,11);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setBlock([whichGame,itemClick]))}}>
+                            <Text style={styles.btnText}>火鍋</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[12])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,12);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setFoul([whichGame,itemClick,0]))}}>
+                            <Text style={styles.btnText}>防守犯規</Text>
+                    </Pressable>
+                    <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[13])}]} onPress={()=>{
+                       
+                       updateStatsClick(statsClick,13);
+                        if(itemClick!=undefined&&player[itemClick].Click)
+                            
+                                dispatch(setFoul([whichGame,itemClick,1]))}}>
+                            <Text style={styles.btnText}>進攻犯規</Text>
+                    </Pressable>
+
                     
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>罰球中</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>罰球不中</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>防守籃板</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>進攻籃板</Text></Pressable>
-
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>助攻</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>失誤</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>抄截</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>失誤</Text></Pressable>
-
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>防守犯規</Text></Pressable>
-                    <Pressable style={styles.conBtn}><Text style={styles.btnText}>進攻犯規</Text></Pressable>
                 </View>
                 
                 
