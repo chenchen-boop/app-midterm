@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const RecordGame=()=>{
+    //var TimerMixin = require('react-timer-mixin'); 
     
     const player=useSelector(selectPlayer);
     const game=useSelector(selectGame);
@@ -20,9 +21,8 @@ const RecordGame=()=>{
         else return('white');
         
     };
-    const [itemClick,setItemClick]=useState();
-
-   
+    const [itemClick,setItemClick]=useState(false);//是否有player被click
+    const [itemClickKey,setItemKeyClick]=useState(null);
    
     const [statsClick,setStatsClick]=useState([ false,false,false,false,
                                                 false,false,false,false,
@@ -30,7 +30,7 @@ const RecordGame=()=>{
                                                 false,false,]);
    
 
-    const updateStatsClick=(Stats,i)=>{
+    const updateStatsClick=(Stats,i)=>{//確保一次點一個
         let newStats=[...Stats];
         newStats[i]=!newStats[i];
         setStatsClick(newStats);
@@ -46,10 +46,16 @@ const RecordGame=()=>{
         });     
 
     };
-    
+    const SetStatsFalse=()=>{
+        setTimeout(() => {
+                            
+            setStatsClick([false,false,false,false,false,false,false,false,false,false,false,false,false,false]);
+            //console.log(statsClick[0]);
+          },100);
 
+    };
 
-
+   
 
     return(
         <View style={styles.container}>
@@ -83,26 +89,31 @@ const RecordGame=()=>{
                             item.Starter?
                             <View style={[styles.playerItem, 
                                     {backgroundColor:setClickColor(item.Click)}]}>
+                                    
                                 <Pressable onPress={()=>{
-                                    
-                                    if(item.key==itemClick||itemClick==null){
-                                       
-                                        dispatch(setClickPlayer(item.key));
+                                    if(itemClick==false){//第一次click player(itemClick:false->true)
+                                        dispatch(setClickPlayer([item.key,true]));
+                                        setItemClick(true);
+                                        setItemKeyClick(item.key);
                                     }
-                                    else{
+                                    else{ //已經click某plyer
+                                        if(item.key==itemClickKey){//click一樣的player(itemClick:true->false)
+                                            dispatch(setClickPlayer([item.key,false]));
+                                            setItemClick(false);
+                                            setItemKeyClick(null);
                                         
-                                        if(player[itemClick].Click){
-                                            
-                                            dispatch(setClickPlayer(itemClick));
-                                            dispatch(setClickPlayer(item.key));
                                         }
-                                        else dispatch(setClickPlayer(item.key));
-                                        
+                                        else{//click不一樣的player
+                                            dispatch(setClickPlayer([itemClickKey,false]));
+                                            dispatch(setClickPlayer([item.key,true]));
+                                            setItemClick(true);
+                                            setItemKeyClick(item.key);
+                                        }
                                     }
+                                }}> 
                                     
-                                    setItemClick(item.key);
+
                                     
-                                    }}>
                                             
                                 
                                     <Text style={styles.playerText}>{item.Number}
@@ -123,118 +134,158 @@ const RecordGame=()=>{
                 <View style={styles.content}>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[0])}]} onPress={()=>{
                        
-                        updateStatsClick(statsClick,0);
-                            
-                        if(itemClick!=undefined&&player[itemClick].Click)//先click player
-                            
-                                dispatch(setTwoPoint([whichGame,itemClick,0]))}} /* 0:gamekey,1:playerkey，2:進/不進 */
-                    > 
+                        if(itemClick){//player is clicked
+                            updateStatsClick(statsClick,0);
+                            dispatch(setTwoPoint([whichGame,itemClickKey,0]));
+                            SetStatsFalse();
+
+                        } 
+                    }}> 
                         <Text style={styles.btnText}>兩分中</Text>
                     </Pressable>
                                                                
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[1])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,1);
-                        if(itemClick!=undefined&&player[itemClick].Click)
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,1);
+                        dispatch(setTwoPoint([whichGame,itemClickKey,1]));
+                        SetStatsFalse();
 
-                                dispatch(setTwoPoint([whichGame,itemClick,1]))}}>
+                    }
+                    }}> 
                             <Text style={styles.btnText}>兩分不中</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[2])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,2);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setThreePoint([whichGame,itemClick,0]))}}>
-                            <Text style={styles.btnText}>三分不中</Text>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,2);
+                        dispatch(setThreePoint([whichGame,itemClickKey,0]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
+                            <Text style={styles.btnText}>三分中</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[3])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,3);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setThreePoint([whichGame,itemClick,1]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,3);
+                        dispatch(setThreePoint([whichGame,itemClickKey,1]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>三分不中</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[4])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,4);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setFreeThrow([whichGame,itemClick,0]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,4);
+                        dispatch(setFreeThrow([whichGame,itemClickKey,0]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>罰球中</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[5])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,5);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setFreeThrow([whichGame,itemClick,1]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,5);
+                        dispatch(setFreeThrow([whichGame,itemClickKey,1]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>罰球不中</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[6])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,6);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setRebound([whichGame,itemClick,0]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,6);
+                        dispatch(setRebound([whichGame,itemClickKey,0]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>防守籃板</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[7])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,7);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setRebound([whichGame,itemClick,1]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,7);
+                        dispatch(setRebound([whichGame,itemClickKey,1]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>進攻籃板</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[8])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,8);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setAssist([whichGame,itemClick]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,8);
+                        dispatch(setAssist([whichGame,itemClickKey]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>助攻</Text>
                     </Pressable>
 
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[9])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,9);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setTurnOver([whichGame,itemClick]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,9);
+                        dispatch(setTurnOver([whichGame,itemClickKey]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>失誤</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[10])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,10);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setSteal([whichGame,itemClick]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,10);
+                        dispatch(setSteal([whichGame,itemClickKey]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>抄截</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[11])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,11);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setBlock([whichGame,itemClick]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,11);
+                        dispatch(setBlock([whichGame,itemClickKey]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>火鍋</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[12])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,12);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setFoul([whichGame,itemClick,0]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,12);
+                        dispatch(setFoul([whichGame,itemClickKey]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>防守犯規</Text>
                     </Pressable>
                     <Pressable style={[styles.conBtn,{backgroundColor:setClickColor(statsClick[13])}]} onPress={()=>{
                        
-                       updateStatsClick(statsClick,13);
-                        if(itemClick!=undefined&&player[itemClick].Click)
-                            
-                                dispatch(setFoul([whichGame,itemClick,1]))}}>
+                       if(itemClick){//player is clicked
+                        updateStatsClick(statsClick,13);
+                        dispatch(setFoul([whichGame,itemClickKey]));
+                        SetStatsFalse();
+
+                    }
+                    }}> 
                             <Text style={styles.btnText}>進攻犯規</Text>
                     </Pressable>
 

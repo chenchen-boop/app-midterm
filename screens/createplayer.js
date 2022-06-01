@@ -54,13 +54,12 @@ const CreatePlayer=()=>{
                     TwoPoint:[],
                     ThreePoint:[],
                     FreeThrow:[],
-                    Drebound:[],
-                    Orebound:[],
+                    Rebound:[],
                     Assist:[],
                     Steal:[],
                     TurnOver:[],
-                    Dfour:[],
-                    Ofour:[],
+                    Block:[],
+                    Four:[],
                   },
 
                 }}

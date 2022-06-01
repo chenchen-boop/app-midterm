@@ -214,7 +214,7 @@ const playerSlice = createSlice({
     
     },
     setClickPlayer:(state,{payload})=>{
-      state.player[payload].Click=!state.player[payload].Click;//payload[0]:player.key, payload[1]:true/false
+      state.player[payload[0]].Click=payload[1];//payload[0]:player.key, payload[1]:true/false
     },
     
 
