@@ -1,10 +1,13 @@
 import React,{ useState } from 'react';
 import {View,Text,StyleSheet,FlatList,Pressable,Image,Button} from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
-import { selectPlayer,setClickPlayer ,setTwoPoint,setThreePoint,setFreeThrow,setRebound,setFoul,setAssist,setSteal,setTurnOver,setBlock} from '../src/redux/playerSlice';
+import { selectPlayer,setClickPlayer ,
+     setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,
+     setFoul,setDelFoul,setAssist,setDelAssist,setSteal,setDelSteal,setTurnOver,setDelTurnOver,setBlock,setDelBlock,
+    }from '../src/redux/playerSlice';
 import {selectGame,selectWhichGame} from '../src/redux/gameSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { AntDesign } from '@expo/vector-icons';
 
 
 
@@ -55,7 +58,54 @@ const RecordGame=()=>{
 
     };
 
-   
+    const [record,setRecord]=useState([]);
+
+    const Record=(name,statsName)=>{
+
+        let newRecord=[...record];
+        newRecord.push([name,statsName]);
+        setRecord(newRecord);
+
+        //record.push([name,statsName]);
+        //console.log(record);
+        //console.log();
+    
+    };
+    const delRecord=(record,index)=>{
+        record.splice(index);
+    };
+
+    const delWhichRecord=(gamekey,playerKey,target)=>{ //i:有子項目的stats(0/1)
+       // console.log("into delWhichRecord");
+        //console.log(gamekey,playerKey,target);
+        switch(target){
+            case '兩分中': dispatch(setDelTwoPoint([gamekey,playerKey,0]));break;
+            case '兩分不中': dispatch(setDelTwoPoint([gamekey,playerKey,1]));break;
+
+            case '三分中': dispatch(setDelThreePoint([gamekey,playerKey,0]));break;
+            case '三分不中': dispatch(setDelThreePoint([gamekey,playerKey,1]));break;
+
+            case '罰球中': dispatch(setDelFreeThrow([gamekey,playerKey,0]));break;
+            case '罰球不中': dispatch(setDelFreeThrow([gamekey,playerKey,1]));break;
+
+            case '防守籃板': dispatch(setDelRebound([gamekey,playerKey,0]));break;
+            case '進攻籃板': dispatch(setDelRebound([gamekey,playerKey,1]));break;
+
+            case '防守犯規': dispatch(setDelFoul([gamekey,playerKey,0]));break;
+            case '進攻犯規': dispatch(setDelFoul([gamekey,playerKey,1]));break;
+
+            case '助攻': dispatch(setDelAssist([gamekey,playerKey]));break;
+            case '抄截': dispatch(setDelSteal([gamekey,playerKey]));break;
+            case '失誤': dispatch(setDelTurnOver([gamekey,playerKey]));break;
+            case '火鍋': dispatch(setDelBlock([gamekey,playerKey]));break;
+            default:
+                console.log("error");
+
+
+        };
+
+
+    };
 
     return(
         <View style={styles.container}>
@@ -138,6 +188,7 @@ const RecordGame=()=>{
                             updateStatsClick(statsClick,0);
                             dispatch(setTwoPoint([whichGame,itemClickKey,0]));
                             SetStatsFalse();
+                            Record(player[itemClickKey].Name,"兩分中");
 
                         } 
                     }}> 
@@ -150,6 +201,8 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,1);
                         dispatch(setTwoPoint([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"兩分不中");
+                        
 
                     }
                     }}> 
@@ -161,6 +214,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,2);
                         dispatch(setThreePoint([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"三分中");
 
                     }
                     }}> 
@@ -172,6 +226,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,3);
                         dispatch(setThreePoint([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"三分不中");
 
                     }
                     }}> 
@@ -183,6 +238,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,4);
                         dispatch(setFreeThrow([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"罰球中");
 
                     }
                     }}> 
@@ -194,6 +250,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,5);
                         dispatch(setFreeThrow([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"罰球不中");
 
                     }
                     }}> 
@@ -205,6 +262,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,6);
                         dispatch(setRebound([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"防守籃板");
 
                     }
                     }}> 
@@ -216,6 +274,8 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,7);
                         dispatch(setRebound([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"進攻籃板");
+
 
                     }
                     }}> 
@@ -227,6 +287,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,8);
                         dispatch(setAssist([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"助攻");
 
                     }
                     }}> 
@@ -239,6 +300,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,9);
                         dispatch(setTurnOver([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"失誤");
 
                     }
                     }}> 
@@ -250,6 +312,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,10);
                         dispatch(setSteal([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"抄截");
 
                     }
                     }}> 
@@ -261,6 +324,7 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,11);
                         dispatch(setBlock([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"火鍋");
 
                     }
                     }}> 
@@ -270,8 +334,9 @@ const RecordGame=()=>{
                        
                        if(itemClick){//player is clicked
                         updateStatsClick(statsClick,12);
-                        dispatch(setFoul([whichGame,itemClickKey]));
+                        dispatch(setFoul([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"防守犯規");
 
                     }
                     }}> 
@@ -281,16 +346,41 @@ const RecordGame=()=>{
                        
                        if(itemClick){//player is clicked
                         updateStatsClick(statsClick,13);
-                        dispatch(setFoul([whichGame,itemClickKey]));
+                        dispatch(setFoul([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        Record(player[itemClickKey].Name,"進攻犯規");
 
                     }
                     }}> 
                             <Text style={styles.btnText}>進攻犯規</Text>
                     </Pressable>
 
+                    <FlatList
+                        
+                        data={record}
+                        renderItem={({item,index})=>((index>=record.length-3)?
+                        <View style={[styles.recordItem,{backgroundColor:(index==record.length-1)?'gray':null}]}>
+                            <Text style={styles.recordText}>
+                                {item[0]}{item[1]}
+                            </Text>
+                            <Pressable onPress={()=>{
+                                delWhichRecord(whichGame,itemClickKey,item[1]);
+                                delRecord(record,index);
+                            }}>
+                                <AntDesign name="delete" size={30} color="black" />
+                            </Pressable>
+                        </View>
+                            :null
+                            
+                        )}
+                    />    
+                    
+                    
                     
                 </View>
+                
+                
+                
                 
                 
             </View>
@@ -383,6 +473,19 @@ const styles=StyleSheet.create({
         borderRadius:20,
         alignItems:'center',
         justifyContent:'center'
+    },
+    recordItem:{
+        flexDirection:'row',
+        justifyContent:'space-around',
+        width:300,
+       // height:100,
+        borderWidth:1,
+        borderRadius:10,
+        
+    },
+    recordText:{
+        fontSize:20,
+        width:200,
     }
 
 

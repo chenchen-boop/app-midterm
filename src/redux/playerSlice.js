@@ -21,7 +21,7 @@ const initialState={
         ThreePoint:[[0,0]],//進/不進
         FreeThrow:[[0,0]],//進/不進
         Rebound:[[0,0]],//防守，進攻
-        Four:[[0,0]],//防守，進攻
+        Foul:[[0,0]],//防守，進攻
         Assist:[0],
         Steal:[0],
         Block:[0],
@@ -53,7 +53,7 @@ const initialState={
         ThreePoint:[[0,0]],
         FreeThrow:[[0,0]],
         Rebound:[[0,0]],
-        Four:[[0,0]],
+        Foul:[[0,0]],
         Assist:[0],
         Steal:[0],
         Block:[0],
@@ -78,7 +78,7 @@ const initialState={
         ThreePoint:[[0,0]],
         FreeThrow:[[0,0]],
         Rebound:[[0,0]],
-        Four:[[0,0]],
+        Foul:[[0,0]],
         Assist:[0],
         Steal:[0],
         Block:[0],
@@ -103,7 +103,7 @@ const initialState={
         ThreePoint:[[0,0]],
         FreeThrow:[[0,0]],
         Rebound:[[0,0]],
-        Four:[[0,0]],
+        Foul:[[0,0]],
         Assist:[0],
         Steal:[0],
         Block:[0],
@@ -128,7 +128,7 @@ const initialState={
         ThreePoint:[[0,0]],//進/不進
         FreeThrow:[[0,0]],//進/不進
         Rebound:[[0,0]],//防守，進攻
-        Four:[[0,0]],//防守，進攻
+        Foul:[[0,0]],//防守，進攻
         Assist:[0],
         Steal:[0],
         Block:[0],
@@ -168,13 +168,14 @@ const playerSlice = createSlice({
 
     },
     del:(state,{payload})=>{
-    //  return state.player.filter((item)=>item.key!=payload);
       state.player.splice(payload,1);
       state.player.forEach((item,index)=>{item.key=index});
      
-    // }
-     
-  //  state.player.filter((item)=>console.log(item.key));
+    
+    },
+    delErrorStats:(state,{payload})=>{
+      if(payload[3]>=0)state.player[0].Stats.payload[1][payload[2]][payload[3]]--;//0:playerkey，1:哪一場，2.哪一個數據，3:有子數據
+      else state.player[0].Stats.payload[1][payload[2]]--;
       
     },
     addStats:(state,{payload})=>{//在starterScreen 中，Click startBtn，每位player就多一個stats
@@ -183,7 +184,7 @@ const playerSlice = createSlice({
         item.Stats.ThreePoint.push([0,0]);
         item.Stats.FreeThrow.push([0,0]);
         item.Stats.Rebound.push([0,0]);
-        item.Stats.Four.push([0,0]);
+        item.Stats.Foul.push([0,0]);
 
         item.Stats.Assist.push(0);
         item.Stats.Steal.push(0);
@@ -224,8 +225,20 @@ const playerSlice = createSlice({
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
     }, 
+    setDelTwoPoint:(state,{payload})=>{
+      state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
+    }, 
+    
+    
     setThreePoint:(state,{payload})=>{
       state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
+    }, 
+    setDelThreePoint:(state,{payload})=>{
+      state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:進/不進
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
     }, 
@@ -234,13 +247,28 @@ const playerSlice = createSlice({
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
     }, 
+    setDelFreeThrow:(state,{payload})=>{
+      state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
+    }, 
     setRebound:(state,{payload})=>{
       state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:防守/進攻
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
     }, 
+    setDelRebound:(state,{payload})=>{
+      state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:防守/進攻
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
+    }, 
     setFoul:(state,{payload})=>{
       state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:防守/進攻
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
+    }, 
+    setDelFoul:(state,{payload})=>{
+      state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:防守/進攻
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
     }, 
@@ -250,8 +278,18 @@ const playerSlice = createSlice({
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Assist[payload[0]]);
     }, 
+    setDelAssist:(state,{payload})=>{
+      state.player[payload[1]].Stats.Assist[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Assist[payload[0]]);
+    }, 
     setSteal:(state,{payload})=>{
       state.player[payload[1]].Stats.Steal[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Steal[payload[0]]);
+    }, 
+    setDelSteal:(state,{payload})=>{
+      state.player[payload[1]].Stats.Steal[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Steal[payload[0]]);
     }, 
@@ -259,9 +297,19 @@ const playerSlice = createSlice({
       state.player[payload[1]].Stats.TurnOver[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TurnOver[payload[0]]);
-    }, 
+    },
+    setDelTurnOver:(state,{payload})=>{
+      state.player[payload[1]].Stats.TurnOver[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TurnOver[payload[0]]);
+    },  
     setBlock:(state,{payload})=>{
       state.player[payload[1]].Stats.Block[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
+     
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Block[payload[0]]);
+    }, 
+    setDelBlock:(state,{payload})=>{
+      state.player[payload[1]].Stats.Block[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Block[payload[0]]);
     }, 
@@ -275,7 +323,7 @@ const playerSlice = createSlice({
 export const selectPlayer=(state)=>state.player.player;
 export const selectAmount=(state)=>state.player.amount;
 export const {todoAdded,setPlayer,setClickPlayer,setAmount,del,
-  setTwoPoint,setThreePoint,setFreeThrow,setRebound,setFoul,setAssist,setSteal,setTurnOver,setBlock,
-  addStats} = playerSlice.actions;
+  setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,setFoul,setDelFoul,setAssist,setDelAssist,setSteal,setDelSteal,setTurnOver,setDelTurnOver,setBlock,setDelBlock,
+  addStats,delErrorStats} = playerSlice.actions;
 
 export default playerSlice.reducer;
