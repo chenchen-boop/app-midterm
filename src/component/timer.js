@@ -2,7 +2,7 @@ import { useState,useEffect, } from 'react';
 import { View,Text,Button } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import { useSelector,useDispatch } from 'react-redux';
-import {selectGame,selectWhichGame,setTime}from '../redux/gameSlice';
+import {selectGame,selectWhichGame,setQuarterLastTime}from '../redux/gameSlice';
 import {selectPlayer, setPlayerTime,setDisplayTime}from '../redux/playerSlice';
 
 
@@ -13,7 +13,7 @@ const Timer=()=>{
     const player=useSelector(selectPlayer);
     const dispatch=useDispatch();
 
-    const [secondsLeft,setsecondsLeft]=useState(game[whichGame].Time);
+    const [secondsLeft,setsecondsLeft]=useState(game[whichGame].QuarterLastTime);
     const [min,setMin]=useState();
     const [second,setSecond]=useState();
     const [pause,setPause]=useState(true);
@@ -81,7 +81,7 @@ const Timer=()=>{
      
     useEffect(()=>{
         startTimer();
-        dispatch(setTime([whichGame,secondsLeft]));
+        dispatch(setQuarterLastTime([whichGame,secondsLeft]));
         
     },[secondsLeft,pause]);
     

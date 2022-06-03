@@ -13,12 +13,14 @@ const CreateRival=()=>{
         <View>
             
             <Formik
-                initialValues={{Date:'',Type:'',Name:'',Time:'',ScoreHome:0,ScoreAway:0,key:''}}
+                initialValues={{Date:'',Type:'',Name:'',Time:'',QuarterLastTime:'600',ScoreHome:0,ScoreAway:0,key:''}}
                 onSubmit={(values,actions)=>{
                     // addRival(values);
                     //values.key=Math.random().toString();
                     values.key=game.length;
-                    if(values.Time=='')values.Time='600'
+                    if(values.Time==''){
+                        values.Time='600';
+                    }
                     dispatch(todoAdded(values));
                     actions.resetForm();
                     dispatch(setCreateGameModalOpen(false));
