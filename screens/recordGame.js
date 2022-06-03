@@ -109,7 +109,11 @@ const RecordGame=()=>{
 
 
     };
-    const [modal,setModal]=useState(true);
+    const [anyModal,setAnyModal]=useState(false);
+    const [starterModal,setStarterModal]=useState(true);
+    const [quarterModal,setQuarterModal]=useState(false);
+
+    const [quarter,setQuarter]=useState(game[whichGame].CurrentQuarter);
     
     return(
         <View style={styles.container}>
@@ -119,12 +123,24 @@ const RecordGame=()=>{
                     <Image source={require('../src/img/4.png')} style={{width:60, height:60}}/>
                     <Text style={styles.teamNameText}>國北丙藍</Text>
                 </Pressable>
+
                 <View style={styles.score}>
                     <Text style={styles.scoreText}>{game[whichGame].ScoreHome}</Text>
                 </View>
-                <View style={styles.time}>
-                    {/* <Text style={styles.timeText}>{game[whichGame].Time}</Text> */}
-                    <Timer/>
+                
+                <View style={{left:80}}>
+                    
+                    <Text style={styles.quarterTxt}>第{quarter}節</Text>
+                    <Timer />{/* 大錶、廷錶btn */}
+                </View>
+
+                <View style={styles.changeQuarterBtn}>
+                    <Pressable onPress={()=>{
+                        setQuarterModal(true);
+                        // console.log(quarterModal);
+                        }}>
+                        <Text style={{fontSize:20}}>換節</Text>
+                    </Pressable>
                 </View>
                 <View style={styles.score}>
                     <Text style={styles.scoreText}>{game[whichGame].ScoreAway}</Text>
@@ -180,7 +196,11 @@ const RecordGame=()=>{
                         )}
                         
                     />
-                    <Pressable style={styles.btn} onPress={()=>setModal(true)}>
+                    <Pressable style={styles.btn} onPress={()=>{
+                        setStarterModal(!starterModal);
+                        // console.log(starterModal);
+                        
+                    }}>
                         <Text style={styles.btnText}>更換球員</Text>
                     </Pressable>
 
@@ -363,6 +383,7 @@ const RecordGame=()=>{
                     <FlatList
                         
                         data={record}
+                        keyExtractor={(item) => item.key=Math.random().toString()}
                         renderItem={({item,index})=>((index>=record.length-3)?
                         <View style={[styles.recordItem,{backgroundColor:(index==record.length-1)?'gray':null}]}>
                             <Text style={styles.recordText}>
@@ -391,29 +412,44 @@ const RecordGame=()=>{
             </View>
 
 
-            <Modal visible={modal} animationType='slide' transparent={true} >
+            <Modal visible={starterModal||quarterModal} animationType='slide' transparent={true} >
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        {(starterModal)
+                        ?
                             <View style={styles.modalContent}>
                                 <MaterialIcons 
                                 name='close'
                                 size={24} 
                                 style={{...styles.modalToggle, ...styles.modalClose}} 
-                                onPress={() =>setModal(false)} 
+                                onPress={() =>{setStarterModal(false)}} 
                                 />
-                                {/* <Text>ttttttttttttttt</Text> */}
-                                <Starter/>
+                                
+                                <Starter/>  
                             </View>
+                        :  
+                            <View style={styles.modalContent}>
+                                    <MaterialIcons 
+                                    name='close'
+                                    size={24} 
+                                    style={{...styles.modalToggle, ...styles.modalClose}} 
+                                    onPress={() =>{setQuarterModal(false)}} 
+                                    />
+                                    
+                                    <Text>第一節</Text>
+                                    <Text>第二節</Text>
+                                    <Text>第三節</Text>
+                                    <Text>第四節</Text>
+                                    <Text>OT1</Text>
+                                    <Text>OT2</Text>
+                                    <Text>OT3</Text>
+                                    <Text>OT4</Text>
+
+                                    
+                            </View>
+                        }  
                         </TouchableWithoutFeedback>
             </Modal>
-
-
-
             
-               
-
-
-                       
-
 
         </View>
         
@@ -435,7 +471,7 @@ const styles=StyleSheet.create({
         
     },
     headerContainer:{
-        justifyContent:'space-evenly',
+        justifyContent:'space-around',
         flexDirection:'row'
     },
     teamItem:{
@@ -451,10 +487,25 @@ const styles=StyleSheet.create({
         fontSize:40
     },
     time:{
-
+        fontSize:20,
+        width:30
     },
     timeText:{
         fontSize:40
+    },
+    quarterTxt:{
+        fontSize:30
+    },
+    changeQuarterBtn:{
+        height:40,
+        padding:5,
+        justifyContent:'center',
+        borderWidth:1,
+        borderRadius:10,
+        right:60,
+        
+        
+        
     },
     playerContainer:{
 

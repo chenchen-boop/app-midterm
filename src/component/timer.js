@@ -1,5 +1,5 @@
 import { useState,useEffect, } from 'react';
-import { View,Text,Button } from 'react-native';
+import { StyleSheet,View,Text,Button,Pressable } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import { useSelector,useDispatch } from 'react-redux';
 import {selectGame,selectWhichGame,setQuarterLastTime}from '../redux/gameSlice';
@@ -88,14 +88,23 @@ const Timer=()=>{
     
     return(
         
-        <View>
+        <View styles={styles.container}>
             
-            <Text>{clockify().displayMins}:
-                <Text>{clockify().displaySeconds}</Text>
-            </Text>
+                <View style={styles.content}>
+                    <View style={styles.clock}>
+                        <Text  style={styles.timeTxt}>{clockify().displayMins}:
+                            <Text style={styles.timeTxt}>{clockify().displaySeconds}</Text>
+                        </Text>
+                    </View>
+                    
+                    <Pressable   onPress={()=>setPause(!pause)}>
+                        <View style={styles.timeBtn}>
+                            <Text style={{fontSize:20}}>停錶</Text>
+                        </View>
+                    </Pressable>
+                </View>
+                
             
-
-            <Button title='停錶' onPress={()=>setPause(!pause)}></Button>
 
         </View>
         
@@ -108,3 +117,37 @@ const Timer=()=>{
     
 };
 export default Timer;
+const styles=StyleSheet.create({
+    container:{
+        flex:1,
+        width:500,
+       
+    },
+    content:{
+        flexDirection:'row',
+        // s
+        
+
+    },
+    timeBtn:{
+        //width:30,
+        padding:5,
+        borderWidth:1,
+        borderRadius:10,
+        alignItems:'center',
+        marginLeft:100,
+    },
+    timeTxt:{
+        fontSize:30
+    },
+    content:{
+        
+        flexDirection:'row'
+    },
+    clock:{
+        // marginLeft:100,
+        // marginRight:160,
+    },
+
+
+});

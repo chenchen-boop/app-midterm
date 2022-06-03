@@ -234,95 +234,105 @@ const playerSlice = createSlice({
     setTwoPoint:(state,{payload})=>{
       state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'兩分不進:'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'兩分進:'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
     }, 
     setDelTwoPoint:(state,{payload})=>{
       state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'兩分不進:'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'兩分進:'+state.player[payload[1]].Stats.TwoPoint[payload[0]][payload[2]]);
     }, 
     
     
     setThreePoint:(state,{payload})=>{
       state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'三分不進:'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'三分進:'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
     }, 
     setDelThreePoint:(state,{payload})=>{
       state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'三分不進:'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'三分進:'+state.player[payload[1]].Stats.ThreePoint[payload[0]][payload[2]]);
     }, 
     setFreeThrow:(state,{payload})=>{
       state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'罰球不進:'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'罰球進:'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
     }, 
     setDelFreeThrow:(state,{payload})=>{
       state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'罰球不進:'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'罰球進:'+state.player[payload[1]].Stats.FreeThrow[payload[0]][payload[2]]);
     }, 
     setRebound:(state,{payload})=>{
       state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:防守/進攻
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'進攻籃板:'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'防守籃板:'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
     }, 
     setDelRebound:(state,{payload})=>{
       state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:防守/進攻
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'進攻籃板:'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'防守籃板:'+state.player[payload[1]].Stats.Rebound[payload[0]][payload[2]]);
     }, 
     setFoul:(state,{payload})=>{
       state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]++;//0:gamekey,1:playerkey，2:防守/進攻
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'進攻犯規:'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'防守犯規:'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
     }, 
     setDelFoul:(state,{payload})=>{
       state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]--;//0:gamekey,1:playerkey，2:防守/進攻
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
+      if(payload[2])console.log(state.player[payload[1]].Name+'犯規:'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
+      else console.log(state.player[payload[1]].Name+'防守犯規:'+state.player[payload[1]].Stats.Foul[payload[0]][payload[2]]);
     }, 
     
     setAssist:(state,{payload})=>{
       state.player[payload[1]].Stats.Assist[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Assist[payload[0]]);
+      console.log(state.player[payload[1]].Name+'助攻:'+state.player[payload[1]].Stats.Assist[payload[0]]);
     }, 
     setDelAssist:(state,{payload})=>{
       state.player[payload[1]].Stats.Assist[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Assist[payload[0]]);
+      console.log(state.player[payload[1]].Name+'助攻:'+state.player[payload[1]].Stats.Assist[payload[0]]);
     }, 
     setSteal:(state,{payload})=>{
       state.player[payload[1]].Stats.Steal[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Steal[payload[0]]);
+      console.log(state.player[payload[1]].Name+'抄截:'+state.player[payload[1]].Stats.Steal[payload[0]]);
     }, 
     setDelSteal:(state,{payload})=>{
       state.player[payload[1]].Stats.Steal[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Steal[payload[0]]);
+      console.log(state.player[payload[1]].Name+'抄截:'+state.player[payload[1]].Stats.Steal[payload[0]]);
     }, 
     setTurnOver:(state,{payload})=>{
       state.player[payload[1]].Stats.TurnOver[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TurnOver[payload[0]]);
+      console.log(state.player[payload[1]].Name+'失誤:'+state.player[payload[1]].Stats.TurnOver[payload[0]]);
     },
     setDelTurnOver:(state,{payload})=>{
       state.player[payload[1]].Stats.TurnOver[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.TurnOver[payload[0]]);
+      console.log(state.player[payload[1]].Name+'失誤:'+state.player[payload[1]].Stats.TurnOver[payload[0]]);
     },  
     setBlock:(state,{payload})=>{
       state.player[payload[1]].Stats.Block[payload[0]]++;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Block[payload[0]]);
+      console.log(state.player[payload[1]].Name+'火鍋:'+state.player[payload[1]].Stats.Block[payload[0]]);
     }, 
     setDelBlock:(state,{payload})=>{
       state.player[payload[1]].Stats.Block[payload[0]]--;//0:gamekey,1:playerkey，2:進/不進
      
-      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Block[payload[0]]);
+      console.log(state.player[payload[1]].Name+'火鍋:'+state.player[payload[1]].Stats.Block[payload[0]]);
     }, 
     setPlayerTime:(state,{payload})=>{
       state.player[payload[1]].Stats.Time[payload[0]]++;

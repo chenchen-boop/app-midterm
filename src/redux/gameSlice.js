@@ -6,6 +6,7 @@ const initialState={
         Type:'a',
         Name:'a',
         Time:'600',//秒
+        CurrentQuarter:'1',
         QuarterLastTime:'600',
         ScoreHome:0,
         ScoreAway:0,
@@ -34,7 +35,10 @@ const gameSlice=createSlice({
         },
         setQuarterLastTime:(state,{payload})=>{
             state.game[payload[0]].QuarterLastTime=payload[1];//0:which game，1:剩餘時間
-        }
+        },
+        setCurrentQuarter:(state,{payload})=>{
+            state.game[payload[0]].CurrentQuarter=payload[1];//0:which game，1:第幾節
+        },
 
     }
 
@@ -42,5 +46,5 @@ const gameSlice=createSlice({
 });
 export const selectGame=(state)=>state.game.game;
 export const selectWhichGame=(state)=>state.game.whichGame;
-export const {todoAdded,setWhichGame,delGame,setQuarterLastTime}=gameSlice.actions;
+export const {todoAdded,setWhichGame,delGame,setQuarterLastTime,setCurrentQuarter}=gameSlice.actions;
 export default gameSlice.reducer;

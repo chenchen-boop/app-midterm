@@ -13,7 +13,7 @@ const CreateRival=()=>{
         <View>
             
             <Formik
-                initialValues={{Date:'',Type:'',Name:'',Time:'',QuarterLastTime:'600',ScoreHome:0,ScoreAway:0,key:''}}
+                initialValues={{Date:'',Type:'',Name:'',Time:'',QuarterLastTime:'600',CurrentQuarter:'1',ScoreHome:0,ScoreAway:0,key:''}}
                 onSubmit={(values,actions)=>{
                     // addRival(values);
                     //values.key=Math.random().toString();
