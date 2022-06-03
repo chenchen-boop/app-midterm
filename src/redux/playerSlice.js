@@ -26,6 +26,8 @@ const initialState={
         Steal:[0],
         Block:[0],
         TurnOver:[0],
+        Time:[0],
+        DisplayTime:[""],
         
         
         
@@ -58,6 +60,8 @@ const initialState={
         Steal:[0],
         Block:[0],
         TurnOver:[0],
+        Time:[0],
+        DisplayTime:[""],
         
         
       },
@@ -83,6 +87,8 @@ const initialState={
         Steal:[0],
         Block:[0],
         TurnOver:[0],
+        Time:[0],
+        DisplayTime:[""],
         
         
       },
@@ -108,6 +114,8 @@ const initialState={
         Steal:[0],
         Block:[0],
         TurnOver:[0],
+        Time:[0],
+        DisplayTime:[""],
         
         
       },
@@ -133,6 +141,8 @@ const initialState={
         Steal:[0],
         Block:[0],
         TurnOver:[0],
+        Time:[0],
+        DisplayTime:[""],
         
         
       },
@@ -190,6 +200,7 @@ const playerSlice = createSlice({
         item.Stats.Steal.push(0);
         item.Stats.TurnOver.push(0);
         item.Stats.Block.push(0);
+        item.Stats.Time.push(0);
        
         
         //console.log( item.Stats);
@@ -313,7 +324,14 @@ const playerSlice = createSlice({
      
       console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Block[payload[0]]);
     }, 
-
+    setPlayerTime:(state,{payload})=>{
+      state.player[payload[1]].Stats.Time[payload[0]]++;
+      //console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.Time[payload[0]]);
+    },
+    setDisplayTime:(state,{payload})=>{
+      state.player[payload[1]].Stats.DisplayTime[payload[0]]=payload[2];//0:gamekey,1:playerkey,2:time轉換成字串
+      console.log(state.player[payload[1]].Name+':'+state.player[payload[1]].Stats.DisplayTime[payload[0]]);
+    }
     
 
   }  
@@ -323,7 +341,9 @@ const playerSlice = createSlice({
 export const selectPlayer=(state)=>state.player.player;
 export const selectAmount=(state)=>state.player.amount;
 export const {todoAdded,setPlayer,setClickPlayer,setAmount,del,
-  setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,setFoul,setDelFoul,setAssist,setDelAssist,setSteal,setDelSteal,setTurnOver,setDelTurnOver,setBlock,setDelBlock,
+  setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,
+  setRebound,setDelRebound,setFoul,setDelFoul,setAssist,setDelAssist,setSteal,setDelSteal,
+  setTurnOver,setDelTurnOver,setBlock,setDelBlock,setPlayerTime,setDisplayTime,
   addStats,delErrorStats} = playerSlice.actions;
 
 export default playerSlice.reducer;

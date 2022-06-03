@@ -60,6 +60,7 @@ const CreatePlayer=()=>{
                     TurnOver:[],
                     Block:[],
                     Four:[],
+                    Time:[],
                   },
 
                 }}

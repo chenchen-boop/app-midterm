@@ -1,5 +1,5 @@
-import React,{ useState } from 'react';
-import {View,Text,StyleSheet,FlatList,Pressable,Image,Button} from 'react-native';
+import React,{ useState ,useRef} from 'react';
+import {View,Text,StyleSheet,FlatList,Pressable,Image,Button,Modal,TouchableWithoutFeedback, Keyboard,} from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { selectPlayer,setClickPlayer ,
      setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,
@@ -8,8 +8,10 @@ import { selectPlayer,setClickPlayer ,
 import {selectGame,selectWhichGame} from '../src/redux/gameSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
-
+import { MaterialIcons } from '@expo/vector-icons'; 
+import ActionSheet from 'react-native-actionsheet';
+import Starter from './starter';
+import Timer from '../src/component/timer';
 
 const RecordGame=()=>{
     //var TimerMixin = require('react-timer-mixin'); 
@@ -72,7 +74,7 @@ const RecordGame=()=>{
     
     };
     const delRecord=(record,index)=>{
-        record.splice(index);
+        record.splice(index,1);
     };
 
     const delWhichRecord=(gamekey,playerKey,target)=>{ //i:有子項目的stats(0/1)
@@ -103,10 +105,12 @@ const RecordGame=()=>{
 
 
         };
+        
 
 
     };
-
+    const [modal,setModal]=useState(true);
+    
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -119,7 +123,8 @@ const RecordGame=()=>{
                     <Text style={styles.scoreText}>{game[whichGame].ScoreHome}</Text>
                 </View>
                 <View style={styles.time}>
-                    <Text style={styles.timeText}>{game[whichGame].Time}</Text>
+                    {/* <Text style={styles.timeText}>{game[whichGame].Time}</Text> */}
+                    <Timer/>
                 </View>
                 <View style={styles.score}>
                     <Text style={styles.scoreText}>{game[whichGame].ScoreAway}</Text>
@@ -175,7 +180,7 @@ const RecordGame=()=>{
                         )}
                         
                     />
-                    <Pressable style={styles.btn}>
+                    <Pressable style={styles.btn} onPress={()=>setModal(true)}>
                         <Text style={styles.btnText}>更換球員</Text>
                     </Pressable>
 
@@ -385,6 +390,28 @@ const RecordGame=()=>{
                 
             </View>
 
+
+            <Modal visible={modal} animationType='slide' transparent={true} >
+                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                            <View style={styles.modalContent}>
+                                <MaterialIcons 
+                                name='close'
+                                size={24} 
+                                style={{...styles.modalToggle, ...styles.modalClose}} 
+                                onPress={() =>setModal(false)} 
+                                />
+                                {/* <Text>ttttttttttttttt</Text> */}
+                                <Starter/>
+                            </View>
+                        </TouchableWithoutFeedback>
+            </Modal>
+
+
+
+            
+               
+
+
                        
 
 
@@ -486,7 +513,26 @@ const styles=StyleSheet.create({
     recordText:{
         fontSize:20,
         width:200,
-    }
+    },
+    modalToggle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: '#f2f2f2',
+        padding: 10,
+        borderRadius: 10,
+        alignSelf: 'center',
+      },
+      modalClose: {
+        marginTop: 100,
+        marginBottom: 0,
+      },
+      modalContent: {
+        flex: 1,
+        // backgroundColor:'gray',
+        
+      },
 
 
 

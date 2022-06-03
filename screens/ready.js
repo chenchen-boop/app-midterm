@@ -16,7 +16,7 @@ const Ready=({route})=>{
             <Text style={[GlobalStyle.text,styles.MainText]}>VS</Text>
             <Text style={[GlobalStyle.text,styles.text,styles.redtext]}>{Name}</Text>
             <Text style={[GlobalStyle.text,styles.MainText]}>{Date}</Text>
-            <Pressable onPress={()=>navigation.navigate('Starter')}>
+            <Pressable onPress={()=>navigation.navigate('RecordGame')}>
                 <Text style={[GlobalStyle.text,GlobalStyle.btn]} >記錄自己數據</Text>
             </Pressable>
             <Pressable 
