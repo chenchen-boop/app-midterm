@@ -78,25 +78,7 @@ const Starter=()=>{
 
 
             </View>
-            {/* <View>
-                    <Modal visible={ModalOpen} animationType='slide'>
-                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                            <View style={styles.modalContent}>
-                                <MaterialIcons 
-                                name='close'
-                                size={24} 
-                                style={{...styles.modalToggle, ...styles.modalClose}} 
-                                onPress={() => setModalOpen(false)} 
-                                />
-                                <TextInput 
-                                    placeholder="Time"
-                                    onChangeText={dispatch(setGame(0,))}
-                                />
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </Modal>
-                    
-                </View> */}
+            
 
         </View>
 

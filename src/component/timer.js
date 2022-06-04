@@ -2,7 +2,7 @@ import { useState,useEffect, } from 'react';
 import { StyleSheet,View,Text,Button,Pressable } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import { useSelector,useDispatch } from 'react-redux';
-import {selectGame,selectWhichGame,setQuarterLastTime}from '../redux/gameSlice';
+import {selectGame,selectWhichGame,setQuarterLastTime,setChangeQuarter}from '../redux/gameSlice';
 import {selectPlayer, setPlayerTime,setDisplayTime}from '../redux/playerSlice';
 
 
@@ -13,6 +13,7 @@ const Timer=()=>{
     const player=useSelector(selectPlayer);
     const dispatch=useDispatch();
 
+    const changeQuarter=game[whichGame].ChangeQuarter;
     const [secondsLeft,setsecondsLeft]=useState(game[whichGame].QuarterLastTime);
     const [min,setMin]=useState();
     const [second,setSecond]=useState();
@@ -27,7 +28,7 @@ const Timer=()=>{
                 clockify();//for 大錶
                 playerClock(player);//for player錶
                 
-             },1000);
+             },1000); 
         }else clearTimeout();
     };
     const playerClock=(player)=>{
@@ -80,10 +81,22 @@ const Timer=()=>{
 
      
     useEffect(()=>{
-        startTimer();
-        dispatch(setQuarterLastTime([whichGame,secondsLeft]));
-        
-    },[secondsLeft,pause]);
+        let isMounted = true;
+        if(isMounted ){
+            if(changeQuarter){
+                
+                dispatch(setChangeQuarter([whichGame,false]));
+                setsecondsLeft('600');
+                console.log(secondsLeft);
+            }
+            startTimer();
+            dispatch(setQuarterLastTime([whichGame,secondsLeft]));
+        }
+        return () => {
+            isMounted = false;
+            //console.log(isMounted);
+            };
+    },[secondsLeft,pause,changeQuarter]);
     
     
     return(

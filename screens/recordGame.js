@@ -1,18 +1,18 @@
-import React,{ useState ,useRef} from 'react';
+import React,{ useState ,useRef, useEffect} from 'react';
 import {View,Text,StyleSheet,FlatList,Pressable,Image,Button,Modal,TouchableWithoutFeedback, Keyboard,} from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { selectPlayer,setClickPlayer ,
      setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,
      setFoul,setDelFoul,setAssist,setDelAssist,setSteal,setDelSteal,setTurnOver,setDelTurnOver,setBlock,setDelBlock,
     }from '../src/redux/playerSlice';
-import {selectGame,selectWhichGame} from '../src/redux/gameSlice';
+import {selectGame,selectWhichGame,setCurrentQuarter} from '../src/redux/gameSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import ActionSheet from 'react-native-actionsheet';
 import Starter from './starter';
 import Timer from '../src/component/timer';
-
+import ChoseQuarter from '../src/component/choseQuarter';
 const RecordGame=()=>{
     //var TimerMixin = require('react-timer-mixin'); 
     
@@ -113,8 +113,14 @@ const RecordGame=()=>{
     const [starterModal,setStarterModal]=useState(true);
     const [quarterModal,setQuarterModal]=useState(false);
 
-    const [quarter,setQuarter]=useState(game[whichGame].CurrentQuarter);
+    // const [quarter,setQuarter]=useState(game[whichGame].CurrentQuarter);
+    const quarter=game[whichGame].CurrentQuarter;
+    const choseQuarter=["第一節","第二節","第三節","第四節","OT1","OT2","OT3","OT4"];
     
+    // useEffect(()=>{
+    //     dispatch(setCurrentQuarter([whichGame,quarter]));
+    //     console.log(game[whichGame].CurrentQuarter);
+    // },[quarter]);
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -129,8 +135,11 @@ const RecordGame=()=>{
                 </View>
                 
                 <View style={{left:80}}>
-                    
-                    <Text style={styles.quarterTxt}>第{quarter}節</Text>
+                    {((quarter)=='1'||(quarter)=='2'||(quarter)=='3'||(quarter)=='4')
+                    ?<Text style={styles.quarterTxt}>第{quarter}節</Text>
+                    :<Text style={styles.quarterTxt}>OT{parseInt(quarter,10)-4}</Text>
+                    }
+                
                     <Timer />{/* 大錶、廷錶btn */}
                 </View>
 
@@ -383,9 +392,9 @@ const RecordGame=()=>{
                     <FlatList
                         
                         data={record}
-                        keyExtractor={(item) => item.key=Math.random().toString()}
+                        keyExtractor={() => Math.random().toString()}
                         renderItem={({item,index})=>((index>=record.length-3)?
-                        <View style={[styles.recordItem,{backgroundColor:(index==record.length-1)?'gray':null}]}>
+                        (<View style={[styles.recordItem,{backgroundColor:(index==record.length-1)?'gray':null}]}>
                             <Text style={styles.recordText}>
                                 {item[0]}{item[1]}
                             </Text>
@@ -395,7 +404,7 @@ const RecordGame=()=>{
                             }}>
                                 <AntDesign name="delete" size={30} color="black" />
                             </Pressable>
-                        </View>
+                        </View>)
                             :null
                             
                         )}
@@ -412,7 +421,7 @@ const RecordGame=()=>{
             </View>
 
 
-            <Modal visible={starterModal||quarterModal} animationType='slide' transparent={true} >
+            <Modal visible={starterModal||quarterModal} animationType='slide' transparent={false} >
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         {(starterModal)
                         ?
@@ -434,16 +443,7 @@ const RecordGame=()=>{
                                     style={{...styles.modalToggle, ...styles.modalClose}} 
                                     onPress={() =>{setQuarterModal(false)}} 
                                     />
-                                    
-                                    <Text>第一節</Text>
-                                    <Text>第二節</Text>
-                                    <Text>第三節</Text>
-                                    <Text>第四節</Text>
-                                    <Text>OT1</Text>
-                                    <Text>OT2</Text>
-                                    <Text>OT3</Text>
-                                    <Text>OT4</Text>
-
+                                    < ChoseQuarter/>
                                     
                             </View>
                         }  
@@ -507,6 +507,10 @@ const styles=StyleSheet.create({
         
         
     },
+    choseQuarterContainer:{
+        flex:1,
+        flexDirection:'row',
+    },
     playerContainer:{
 
     },
@@ -552,6 +556,7 @@ const styles=StyleSheet.create({
         alignItems:'center',
         justifyContent:'center'
     },
+
     recordItem:{
         flexDirection:'row',
         justifyContent:'space-around',
@@ -577,13 +582,14 @@ const styles=StyleSheet.create({
       },
       modalClose: {
         marginTop: 100,
-        marginBottom: 0,
+       
       },
       modalContent: {
         flex: 1,
         // backgroundColor:'gray',
         
       },
+      
 
 
 
