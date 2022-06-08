@@ -124,6 +124,7 @@ const styles=StyleSheet.create({
     container:{
         
         padding:30,
+        height:500,
         // width:1000,
         
        

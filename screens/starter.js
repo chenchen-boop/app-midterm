@@ -29,7 +29,7 @@ const Starter=()=>{
             <View style={styles.leftContainer}>
                 <FlatList
                     
-                    numColumns={4}
+                    numColumns={5}
                     data={player}
                     keyExtractor={item=>item.key}
                     renderItem={({item})=>
@@ -54,21 +54,17 @@ const Starter=()=>{
                 />
             {/* <Text>{player[0].Name}</Text> */}
             </View>
-            <View style={styles.rightContainer}>
+
+            {/* <View style={styles.rightContainer}>
                 <Button title="開始比賽" 
                 
-                />
-                {/* <Button title="比賽時間" onPress={()=>setModalOpen(true)}/> */}
-                <Button title="管理球員" onPress={()=>navigation.navigate('Main')}/>
+                /> 
+                 <Button title="比賽時間" onPress={()=>setModalOpen(true)}/> 
+                 <Button title="管理球員" onPress={()=>navigation.navigate('Main')}/>
                 
-                
+            
 
-
-
-
-
-
-            </View>
+            </View> */}
             
 
         </View>
@@ -92,21 +88,23 @@ const styles=StyleSheet.create({
         flex:1,
         padding:20,
         flexDirection:"row",
+        justifyContent:'center',
+        alignItems:'center'
         
     
     },
     leftContainer:{
         
-        flex:3,
-        width:100,
+        //flex:3,
+        //width:100,
         // flexDirection:'row',
-        flexWrap:'wrap',
+        //flexWrap:'wrap',
       
 
         
     },
     rightContainer:{
-        flex:1,
+        //flex:1,
     },
     card:{
         
@@ -135,11 +133,12 @@ const styles=StyleSheet.create({
         alignSelf: 'center',
       },
       modalClose: {
-        marginTop: 20,
+        // marginTop: 20,
         marginBottom: 0,
       },
       modalContent: {
         flex: 1,
+        backgroundColor:"#ffffe0",
       },
 
 

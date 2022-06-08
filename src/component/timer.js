@@ -112,7 +112,7 @@ const Timer=()=>{
                     
                     <Pressable   onPress={()=>setPause(!pause)}>
                         <View style={styles.timeBtn}>
-                            <Text style={{fontSize:20}}>停錶</Text>
+                            <Text style={{fontSize:20,color:'white'}}>停錶</Text>
                         </View>
                     </Pressable>
                 </View>
@@ -144,14 +144,17 @@ const styles=StyleSheet.create({
     },
     timeBtn:{
         //width:30,
-        padding:5,
+        paddingHorizontal:20,
+        paddingVertical:5,
         borderWidth:1,
         borderRadius:10,
         alignItems:'center',
-        marginLeft:100,
+        marginLeft:70,
+        backgroundColor:'red'
     },
     timeTxt:{
-        fontSize:30
+        fontSize:30,
+        
     },
     content:{
         

@@ -14,17 +14,24 @@ const Home=()=>{
       
         <ImageBackground  source={require('../src/img/3.jpg')} style={styles.image}   resizeMode='cover'>
           
-          <View style={{alignItems: "center",}}>
-            <Text style={styles.title}>籃球記憶</Text>
+        <View style={{alignItems: "center",}}>
 
-          
-            <Pressable onPress={()=>navigation.navigate('Login')}>
-              <Text style={styles.btn}>登入</Text>
-            </Pressable>
-            <Pressable onPress={()=>Alert.alert('comming soon')}>
-              <Text style={styles.btn}>註冊</Text>
-            </Pressable>
+          <View style={styles.titleBox}>
+            <Text style={styles.titleText}>籃球記憶</Text>
           </View>
+            
+          <View style={[styles.btn,{backgroundColor:'#00008B'}]}>
+              <Pressable onPress={()=>navigation.navigate('Login')}>
+                <Text style={styles.text}>登入</Text>
+              </Pressable>
+          </View>
+          <View style={[styles.btn,{backgroundColor:`#dcdcdc`}]}>
+              <Pressable onPress={()=>Alert.alert('comming soon')}>
+                <Text style={[styles.text,{color:'black'}]}>註冊</Text>
+              </Pressable>
+          </View>
+
+        </View>
           
         </ImageBackground>
         
@@ -41,15 +48,20 @@ export default Home;
     container: {
       flex: 1,
       backgroundColor: 'gray',
+      
     
     },
-    title:{
+    titleBox:{
+      
+      // marginTop:10,
+      marginBottom:190,
+      
+    },
+    titleText:{
       color: "white",
       fontFamily: 'serif',
       fontWeight:'bold',
-      fontSize:70,
-      marginTop:30,
-      marginBottom:150,
+      fontSize:100,
       letterSpacing:20,
     },
     image:{
@@ -57,19 +69,23 @@ export default Home;
       justifyContent: "center",
     } ,
     btn: {
-      color: "white",
-      fontSize: 42,
-      lineHeight: 84,
-      fontWeight: "bold",
+      
       textAlign: "center",
       // backgroundColor: "#000000c0",
       backgroundColor: "#3399ff",
-      margin:20,
-      padding:10,
-      borderRadius:10,
-      paddingHorizontal:70,
+      marginBottom:20,
+      // padding:20,
+      borderRadius:40,
+      paddingHorizontal:180,
+      paddingVertical:10,
+      
+    },
+    text:{
+      fontSize: 42,
+      color: "white",
       fontFamily: 'serif',
-      fontWeight:'bold'
+      fontWeight:'bold',
+      // lineHeight: 42,
       
     }
   });

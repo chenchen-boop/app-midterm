@@ -69,8 +69,8 @@ const Main=()=>{
                       <Button title='管理球隊' onPress={()=>navigation.navigate('Manage')}/>
                 </View> */}
                 <Pressable onPress={()=>navigation.navigate('Manage')}>
-                    <View style={GlobalStyle.btn}>
-                        <Text style={GlobalStyle.text}>管理球隊</Text>
+                    <View style={styles.btn}>
+                        <Text style={styles.btnText}>管理球隊</Text>
                     </View>
                 </Pressable>
                 
@@ -78,16 +78,19 @@ const Main=()=>{
                       <Text>------------------------------------------------------------------------------------------------------------------------------------------</Text>
                 </View>
                 <View>                             
-                    <Text style={styles.text}>球員名單</Text>
+                    <Text style={{fontSize:30}}>球員名單</Text>
                 </View>
         
                        
             </View>
-            <View style={{flexDirection: "row",justifyContent: 'center'}}>
-                    <Text style={styles.itemTitle}>背號</Text>
-                    <Text style={styles.itemTitle}>姓名</Text>
-                    <Text style={styles.itemTitle}>身高 (cm)</Text>
-                    <Text style={styles.itemTitle}>體重 (kg)</Text>
+            <View style={styles.titleRow}>
+                <View style={styles.titleBox}><Text style={styles.text}>背號</Text></View>
+                <View style={styles.titleBox}><Text style={styles.text}>姓名</Text></View> 
+                <View style={styles.titleBox}><Text style={styles.text}>身高 (cm)</Text></View>   
+                <View style={styles.titleBox}><Text style={styles.text}>體重 (kg)</Text></View>     
+                    
+                    
+                    
             </View>
             <View>
                     <MaterialIcons 
@@ -103,11 +106,21 @@ const Main=()=>{
                     data={player}
                     renderItem={({item})=>(
             
-                        <View style={styles.itemContainer}>
-                            <Text style={styles.item}>{item.Number}</Text>
-                            <Text style={styles.item}>{item.Name}</Text>
-                            <Text style={styles.item}>{item.Height}</Text>
-                            <Text style={styles.item}>{item.Weight}</Text>
+                        <View style={styles.itemRow}>
+                            <View style={styles.itemBox}>
+                                <Text style={styles.text}>{item.Number}</Text>
+                            </View>
+                            <View style={styles.itemBox}>
+                                <Text style={styles.text}>{item.Name}</Text>
+                            </View>
+                            <View style={styles.itemBox}>
+                                <Text style={styles.text}>{item.Height}</Text>
+                            </View>
+                            <View style={styles.itemBox}>
+                                <Text style={styles.text}>{item.Weight}</Text>
+                            </View>
+                            
+                            
                             <Pressable onPress={()=>dispatch(del(item.key))}>
                             {/* <Pressable onPress={()=>console.log(item.key)}> */}
                                 <AntDesign name="delete" size={40} color="black" />
@@ -121,7 +134,7 @@ const Main=()=>{
            
         
 
-                <View>
+                <View >
                     <Modal visible={modal.createPlayerModalOpen} animationType='slide'>
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={styles.modalContent}>
@@ -148,34 +161,63 @@ const Main=()=>{
 const styles = StyleSheet.create({
     container:{
         padding:50,
-        height:1100
+        height:1100,
+        //backgroundColor:'#f5deb3'
         // backgroundColor:'gray'
+        backgroundColor:'#FFE4C4'
     },
-    itemTitle:{
+    btn:{
+        borderWidth:1,
+        backgroundColor:'#00008B',
+        borderRadius:40,
+        width:400,
+        justifyContent:'center',
+        alignItems:'center',
+        // opacity:0.7,
+
+    },
+    btnText:{
+        fontSize:40,
+        color:'white'
+    },
+    titleBox:{
+        width:100,
         borderWidth:1 ,
         margin:20,
-        fontSize:20,
-        padding:10
+        paddingVertical:10,
+        alignItems:'center',
+        justifyContent:'center'
+
     },
-    itemContainer:{
+    titleRow:{
+        
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems:'center',
+    },
+    text:{
+        fontSize:20,
+    },
+    itemRow:{
         backgroundColor:'gray',
         justifyContent: 'center',
+        alignItems:'center',
         flexDirection:'row',
-        marginHorizontal:40,
-        marginBottom:20,
-        borderRadius:10,
-        paddingTop:10
-        // alignItems:'stretch'
-       // backgroundColor:'gray',
+        //marginBottom:20,
+        //borderRadius:10,
+        paddingVertical:10,
+        borderWidth:1,
+        
         
     },
-    item:{
-       
-        borderWidth:1 ,
-        fontSize:20,
-        padding:10,
-        marginHorizontal:30,
-        marginBottom:20
+    itemBox:{
+        width:100,
+        //borderWidth:1 ,
+        justifyContent:'center',
+        alignItems:'center',
+        //padding:10,
+        marginHorizontal:20,
+        // marginBottom:20
 
     },
     
@@ -185,7 +227,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginBottom: 10,
       borderWidth: 1,
-      borderColor: '#f2f2f2',
+    //   borderColor: '#f2f2f2',
       padding: 10,
       borderRadius: 10,
       alignSelf: 'center',
@@ -196,6 +238,7 @@ const styles = StyleSheet.create({
     },
     modalContent: {
       flex: 1,
+      backgroundColor:"#ffffe0",
     },
     title:{
         color: "black",
@@ -212,6 +255,7 @@ const styles = StyleSheet.create({
         fontFamily: 'serif',
         fontWeight:'bold',
         color: "black",
+       // color:'white'
     }
   });
 

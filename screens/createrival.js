@@ -50,6 +50,9 @@ const CreateRival=()=>{
                     if(values.Time==''){
                         values.Time='600';
                     }
+                    else {
+                        values.Time*=60;
+                    }
                     dispatch(todoAdded(values));
                     actions.resetForm();
                     dispatch(setCreateGameModalOpen(false));
@@ -81,7 +84,7 @@ const CreateRival=()=>{
                         <TextInput
                             placeholder='Time'
                             onChangeText={props.handleChange('Time')}
-                            value={props.values.Time*60}
+                            value={props.values.Time}
                             style={GlobalStyle.input}
                         />
                         

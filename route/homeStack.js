@@ -28,9 +28,9 @@ const HomeStack=()=>{
                     <Stack.Screen name='Main' component={Main} options={{orientation: 'portrait'}}/>
                     {/* <Stack.Screen name='CreatePlayer' component={CreatePlayer}/> */}
                     <Stack.Screen name='Manage' component={Manage} options={{orientation: 'portrait'}}/>
-                    <Stack.Screen name='Ready' component={Ready} options={{orientation: 'portrait'}}/>
+                    <Stack.Screen name='Ready' component={Ready} options={{orientation: 'landscape'}}/>
                     {/* <Stack.Screen name='Starter' component={Starter}  options={{orientation: 'landscape'}}/> */}
-                    <Stack.Screen name='RecordGame' component={RecordGame} options={{orientation: 'landscape'}}/>
+                    <Stack.Screen name='RecordGame' component={RecordGame} options={{orientation: 'landscape',headerShown:false}}/>
                     
                 </Stack.Group>
             </Stack.Navigator>

@@ -40,12 +40,14 @@ const Manage=()=>{
             
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                    <Text style={styles.itemTitle}>日期</Text>
-                    <Text style={styles.itemTitle}>性質</Text>
-                    <Text style={styles.itemTitle}>對手</Text>
-                    <Text style={styles.itemTitle}>單節時間</Text>
-                    <Text style={styles.itemTitle}>數據控制</Text>
-                    <Text style={styles.itemTitle}>數據</Text>
+                <View style={styles.titleBox}><Text style={styles.text}>日期</Text></View>
+                <View style={styles.titleBox}><Text style={styles.text}>性質</Text></View>
+                <View style={styles.titleBox}><Text style={styles.text}>對手</Text></View>
+                <View style={styles.titleBox}><Text style={styles.text}>單節時間</Text></View>
+                <View style={styles.titleBox}><Text style={styles.text}>數據控制</Text></View>
+                <View style={styles.titleBox}><Text style={styles.text}>數據</Text></View>
+                    
+                    
             </View>
             <MaterialIcons 
                     name='add' 
@@ -57,31 +59,42 @@ const Manage=()=>{
             <FlatList
                 data={game}
                 renderItem={({item})=>(
-                    <View style={styles.itemContainer}>
+                    <View style={styles.itemRow}>
+                        <View style={styles.itemBox}><Text style={styles.text}>{item.Date}</Text></View>
+                        <View style={styles.itemBox}><Text style={styles.text}>{item.Type}</Text></View>
+                        <View style={styles.itemBox}><Text style={styles.text}>{item.Name}</Text></View>
+                        <View style={styles.itemBox}><Text style={styles.text}>{item.Time/60}</Text></View>
+                        <View>
+                            <Pressable  onPress={()=>{
+                                navigation.navigate('Ready',item);
+                                dispatch(setWhichGame(item.key)); //唯二能setWhichGame的地方
+                                //console.log(whichGame);
 
-                        <Text style={styles.item}>{item.Date}</Text>
-                        <Text style={styles.item}>{item.Type}</Text>
-                        <Text style={styles.item}>{item.Name}</Text>
-                        <Text style={styles.item}>{item.Time}</Text>
-                        <Pressable  onPress={()=>{
-                            navigation.navigate('Ready',item);
-                            dispatch(setWhichGame(item.key)); //唯二能setWhichGame的地方
-                            //console.log(whichGame);
-
-                        }} 
-                            style={[GlobalStyle.btn,styles.btn]} >
-                            <Text  style={GlobalStyle.text}>數據控制</Text>
+                            }} 
+                                style={styles.btn} >
+                                <Text  style={[styles.text,{color:'white'}]}>數據控制</Text>
                         </Pressable>
-                        <Pressable onPress={()=>{
-                            setStatsModal(true);
-                            dispatch(setWhichGame(item.key)); //唯二能setWhichGame的地方
-                            }}
-                            style={[GlobalStyle.btn,styles.btn]}>
-                            <Text  style={GlobalStyle.text}>數據</Text>
-                        </Pressable>
-                        <Pressable onPress={()=>dispatch(delGame(item.key))}>
-                            <AntDesign name="delete" size={40} color="black" />
-                        </Pressable>
+                        </View>
+                        <View style={[styles.btn,{backgroundColor:'green'	}]}>
+                            <Pressable onPress={()=>{
+                                setStatsModal(true);
+                                dispatch(setWhichGame(item.key)); //唯二能setWhichGame的地方
+                                }}
+                                >
+                                <Text  style={[styles.text,{color:'white'}]}>數據</Text>
+                            </Pressable>
+                        </View>
+                        
+                        <View>
+                            <Pressable onPress={()=>dispatch(delGame(item.key))}>
+                                <AntDesign name="delete" size={40} color="black" />
+                            </Pressable>
+                        </View>
+                        
+                        
+                        
+                        
+                        
                     </View>
                 )}
             />
@@ -89,7 +102,8 @@ const Manage=()=>{
                 
 
                 <Modal visible={modal.createGameModalOpen||statsModal} animationType='slide'>
-                    {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+                
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     {(()=>{
                         if(modal.createGameModalOpen){
                             return(
@@ -124,10 +138,9 @@ const Manage=()=>{
                     }
                     
                         
-                    {/* </TouchableWithoutFeedback> */}
+                    </TouchableWithoutFeedback>
                 </Modal>  
-                                       
-                                   
+                                    
             </View>
             
 
@@ -144,62 +157,69 @@ const styles = StyleSheet.create({
         flex:1,
         paddingHorizontal:50,
         paddingTop:50,
-        paddingBottom:200,
-        height:1100,
+        paddingBottom:100,
+        // height:1300,
+        backgroundColor:'#FFE4C4'
         // width:500,
     },
     titleContainer:{
         flexDirection:'row',
-        justifyContent:'space-around',
+        //justifyContent:'space-around',
         padding:20,
-        marginBottom:20,
+        marginBottom:10,
 
     },
-    itemTitle:{
-        // width:100,
+    titleBox:{
+        width:100,
         borderWidth:1 ,
-        marginHorizontal:10,
+        paddingVertical:10,
+        justifyContent:'center',
+        alignItems:'center',
+        
+    },
+    text:{
         fontSize:20,
-        padding:10,
-        // paddingHorizontal:20
+        color:'black'
     },
 
 
-    itemContainer:{
+    itemRow:{
         flexDirection:'row',
         backgroundColor:'gray',
         justifyContent: 'space-around',
         alignItems:'center',
         
-        marginHorizontal:20,
+        //marginHorizontal:20,
         marginBottom:20,
-        borderRadius:10,
-       
+        
+        
+        borderWidth:1,
         
     },
-    item:{
-        //alignItems:'center',
-       // alignContent:'center',
-        //justifyContent:'center',
-        width:80,
-        borderWidth:1 ,
-        // margin:20,
-        //paddingHorizontal:20,
-        //paddingVertical:10,
-        height:60,
-        fontSize:20,
+    itemBox:{
+        alignItems:'center',
+        justifyContent:'center',
+        width:100,
+        //borderWidth:1 ,
+        paddingVertical:20
+    
+        // height:60,
         
-        marginHorizontal:20
+        
+        //marginHorizontal:20
     },
     btn:{
-        paddingHorizontal:16
+        paddingHorizontal:16,
+        backgroundColor:'#00008B',
+        borderRadius:20,
+        paddingVertical:20
     },
     modalToggle: {
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: 10,
       borderWidth: 1,
-      borderColor: '#f2f2f2',
+    //   borderColor: '#f2f2f2',
       padding: 10,
       borderRadius: 10,
       alignSelf: 'center',
@@ -210,6 +230,7 @@ const styles = StyleSheet.create({
     },
     modalContent: {
       flex: 1,
+      backgroundColor:"#ffffe0",
     },
     
   });

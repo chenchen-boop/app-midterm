@@ -143,7 +143,7 @@ const RecordGame=()=>{
                     <Image source={require('../src/img/4.png')} style={{width:60, height:60}}/>
                     <Text style={styles.teamNameText}>國北丙藍</Text>
                 </Pressable>
-
+        
                 <View style={styles.score}>
                     <Text style={styles.scoreText}>{scoreHome}</Text>
                 </View>
@@ -162,7 +162,7 @@ const RecordGame=()=>{
                         setQuarterModal(true);
                         // console.log(quarterModal);
                         }}>
-                        <Text style={{fontSize:20}}>換節</Text>
+                        <Text style={{fontSize:20,color:'white'}}>換節</Text>
                     </Pressable>
                 </View>
                 <View style={styles.score}>
@@ -209,10 +209,14 @@ const RecordGame=()=>{
 
                                     
                                             
-                                
-                                    <Text style={styles.playerText}>{item.Number}
-                                        <Text style={styles.playerText}>{item.Name}</Text>
-                                    </Text>
+                                <View style={styles.playerBox}>
+                                    <View style={{flex:1,alignItems:'center'}}><Text style={styles.playerText}>{item.Number}</Text></View>
+                                    
+                                    <View style={{flex:3,alignItems:'center'}}><Text style={styles.playerText}>{item.Name}</Text></View>
+                                </View>
+                                    
+                                        
+                                    
                                     
                                 </Pressable>
                             </View>:null
@@ -224,7 +228,7 @@ const RecordGame=()=>{
                         // console.log(starterModal);
                         
                     }}>
-                        <Text style={styles.btnText}>更換球員</Text>
+                        <Text style={[styles.btnText,{color:'white'}]}>更換球員</Text>
                     </Pressable>
 
                 </View>
@@ -615,10 +619,12 @@ const styles=StyleSheet.create({
         flex:1,
         padding:30,
         
+        
     },
     headerContainer:{
         justifyContent:'space-around',
-        flexDirection:'row'
+        flexDirection:'row',
+        marginTop:40
     },
     teamItem:{
         alignItems:'center'
@@ -627,7 +633,11 @@ const styles=StyleSheet.create({
         fontSize:40
     },
     score:{
-
+        borderWidth:1,
+        justifyContent:'center',
+        alignItems:'center',
+        width:100,
+        marginBottom:10,
     },
     scoreText:{
         fontSize:40
@@ -644,11 +654,14 @@ const styles=StyleSheet.create({
     },
     changeQuarterBtn:{
         height:40,
-        padding:5,
+        paddingHorizontal:20,
+        paddingVertical:5,
         justifyContent:'center',
         borderWidth:1,
         borderRadius:10,
         right:60,
+        bottom:10,
+        backgroundColor:'green'
         
         
         
@@ -665,8 +678,10 @@ const styles=StyleSheet.create({
         borderWidth:2,
         marginBottom:20,
         borderRadius:20,
-        alignItems:'center',
-       
+        
+    },
+    playerBox:{
+        flexDirection:'row',
 
     },
     playerText:{
@@ -681,10 +696,13 @@ const styles=StyleSheet.create({
         borderWidth:2,
         marginBottom:20,
         borderRadius:20,
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor:'#00008B',
+        
     },
     btnText:{
-        fontSize:30
+        fontSize:30,
+        
     },
     content:{
         paddingRight:300,
@@ -732,6 +750,7 @@ const styles=StyleSheet.create({
       },
       modalContent: {
         flex: 1,
+        backgroundColor:"#ffffe0",
         //backgroundColor:'gray'
         // backgroundColor:'gray',
         
