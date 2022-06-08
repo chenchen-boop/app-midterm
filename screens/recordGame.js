@@ -5,7 +5,11 @@ import { selectPlayer,setClickPlayer ,
      setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,
      setFoul,setDelFoul,setAssist,setDelAssist,setSteal,setDelSteal,setTurnOver,setDelTurnOver,setBlock,setDelBlock,
     }from '../src/redux/playerSlice';
-import {selectGame,selectWhichGame,setCurrentQuarter} from '../src/redux/gameSlice';
+import {selectGame,selectWhichGame,setCurrentQuarter,setScoreHome,
+    setTeamPoint,setTeamRebound,setTeamAssist, setTeamSteal ,setTeamBlock,
+    setTeamFGM, setTeamFGA, setTeamFG,setTeamThreeFGM ,setTeamThreeFGA, setTeamTwoFGM, setTeamTwoFGA,
+    setTeamFTM ,setTeamFTA, setTeamFT, setTeamOrebound, setTeamDrebound, setTeamTurnOver, setTeamFoul,
+} from '../src/redux/gameSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -13,6 +17,8 @@ import ActionSheet from 'react-native-actionsheet';
 import Starter from './starter';
 import Timer from '../src/component/timer';
 import ChoseQuarter from '../src/component/choseQuarter';
+import EachGameStats from '../src/component/eachGameStats';
+
 const RecordGame=()=>{
     //var TimerMixin = require('react-timer-mixin'); 
     
@@ -28,6 +34,8 @@ const RecordGame=()=>{
     };
     const [itemClick,setItemClick]=useState(false);//是否有player被click
     const [itemClickKey,setItemKeyClick]=useState(null);
+
+    
    
     const [statsClick,setStatsClick]=useState([ false,false,false,false,
                                                 false,false,false,false,
@@ -68,9 +76,7 @@ const RecordGame=()=>{
         newRecord.push([name,statsName]);
         setRecord(newRecord);
 
-        //record.push([name,statsName]);
-        //console.log(record);
-        //console.log();
+        
     
     };
     const delRecord=(record,index)=>{
@@ -112,26 +118,33 @@ const RecordGame=()=>{
     const [anyModal,setAnyModal]=useState(false);
     const [starterModal,setStarterModal]=useState(true);
     const [quarterModal,setQuarterModal]=useState(false);
-
+    const [statsModal,setStatsModal]=useState(false);
     // const [quarter,setQuarter]=useState(game[whichGame].CurrentQuarter);
     const quarter=game[whichGame].CurrentQuarter;
     const choseQuarter=["第一節","第二節","第三節","第四節","OT1","OT2","OT3","OT4"];
-    
+    //const [scoreHome,setscorehome]=useState(game[whichGame].scoreHome);
+
+    const scoreHome=game[whichGame].ScoreHome;
     // useEffect(()=>{
     //     dispatch(setCurrentQuarter([whichGame,quarter]));
     //     console.log(game[whichGame].CurrentQuarter);
     // },[quarter]);
+
+
+    // useEffect(()=>{
+    //     dispatch(setScoreHome([whichGame,scoreHome]));
+    // },[scoreHome]);
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 
-                <Pressable style={styles.teamItem}>
+                <Pressable style={styles.teamItem} onPress={()=>setStatsModal(true)}>
                     <Image source={require('../src/img/4.png')} style={{width:60, height:60}}/>
                     <Text style={styles.teamNameText}>國北丙藍</Text>
                 </Pressable>
 
                 <View style={styles.score}>
-                    <Text style={styles.scoreText}>{game[whichGame].ScoreHome}</Text>
+                    <Text style={styles.scoreText}>{scoreHome}</Text>
                 </View>
                 
                 <View style={{left:80}}>
@@ -222,8 +235,20 @@ const RecordGame=()=>{
                             updateStatsClick(statsClick,0);
                             dispatch(setTwoPoint([whichGame,itemClickKey,0]));
                             SetStatsFalse();
-                            Record(player[itemClickKey].Name,"兩分中");
+                            //關掉click player
+                            dispatch(setClickPlayer([itemClickKey,false]));
+                            setItemClick(false);
+                            setItemKeyClick(null);
 
+                            Record(player[itemClickKey].Name,"兩分中");
+                            dispatch(setScoreHome([whichGame,2]));
+                            dispatch(setTeamPoint([whichGame,2]));
+                            dispatch(setTeamFGM(whichGame));
+                            dispatch(setTeamFGA(whichGame));
+                            dispatch(setTeamFG(whichGame));
+                            dispatch(setTeamTwoFGA(whichGame));
+                            dispatch(setTeamTwoFGM(whichGame));
+                           console.log(scoreHome);
                         } 
                     }}> 
                         <Text style={styles.btnText}>兩分中</Text>
@@ -235,7 +260,15 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,1);
                         dispatch(setTwoPoint([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+
                         Record(player[itemClickKey].Name,"兩分不中");
+                        dispatch(setTeamFGA(whichGame));
+                        dispatch(setTeamFG(whichGame));
+                        dispatch(setTeamTwoFGA(whichGame));
                         
 
                     }
@@ -248,8 +281,21 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,2);
                         dispatch(setThreePoint([whichGame,itemClickKey,0]));
                         SetStatsFalse();
-                        Record(player[itemClickKey].Name,"三分中");
 
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+
+                        Record(player[itemClickKey].Name,"三分中");
+                        dispatch(setScoreHome([whichGame,3]));
+                        dispatch(setTeamPoint([whichGame,3]));
+                        dispatch(setTeamFGM(whichGame));
+                        dispatch(setTeamFGA(whichGame));
+                        dispatch(setTeamFG(whichGame));
+                        dispatch(setTeamThreeFGM(whichGame));
+                        dispatch(setTeamThreeFGA(whichGame));
+                       // console.log(scoreHome);
                     }
                     }}> 
                             <Text style={styles.btnText}>三分中</Text>
@@ -260,7 +306,15 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,3);
                         dispatch(setThreePoint([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"三分不中");
+                        dispatch(setTeamFGA(whichGame));
+                        dispatch(setTeamFG(whichGame));
+                        dispatch(setTeamThreeFGA(whichGame));
 
                     }
                     }}> 
@@ -272,8 +326,18 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,4);
                         dispatch(setFreeThrow([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"罰球中");
-
+                        dispatch(setScoreHome([whichGame,1]));
+                        dispatch(setTeamPoint([whichGame,1]));
+                        dispatch(setTeamFTA(whichGame));
+                        dispatch(setTeamFTM(whichGame));
+                        dispatch(setTeamFT(whichGame));
+                        //console.log(scoreHome);
                     }
                     }}> 
                             <Text style={styles.btnText}>罰球中</Text>
@@ -284,7 +348,14 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,5);
                         dispatch(setFreeThrow([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"罰球不中");
+                        dispatch(setTeamFTA(whichGame));
+                        dispatch(setTeamFT(whichGame));
 
                     }
                     }}> 
@@ -296,8 +367,14 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,6);
                         dispatch(setRebound([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"防守籃板");
-
+                        dispatch(setTeamRebound(whichGame));
+                        dispatch(setTeamDrebound(whichGame));
                     }
                     }}> 
                             <Text style={styles.btnText}>防守籃板</Text>
@@ -308,7 +385,14 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,7);
                         dispatch(setRebound([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"進攻籃板");
+                        dispatch(setTeamRebound(whichGame));
+                        dispatch(setTeamOrebound(whichGame));
 
 
                     }
@@ -321,7 +405,13 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,8);
                         dispatch(setAssist([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"助攻");
+                        dispatch(setTeamAssist(whichGame));
 
                     }
                     }}> 
@@ -334,7 +424,13 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,9);
                         dispatch(setTurnOver([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"失誤");
+                        dispatch(setTeamTurnOver(whichGame));
 
                     }
                     }}> 
@@ -346,7 +442,13 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,10);
                         dispatch(setSteal([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"抄截");
+                        dispatch(setTeamSteal(whichGame));
 
                     }
                     }}> 
@@ -358,7 +460,13 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,11);
                         dispatch(setBlock([whichGame,itemClickKey]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"火鍋");
+                        dispatch(setTeamBlock(whichGame));
 
                     }
                     }}> 
@@ -370,7 +478,13 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,12);
                         dispatch(setFoul([whichGame,itemClickKey,0]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"防守犯規");
+                        dispatch(setTeamFoul(whichGame));
 
                     }
                     }}> 
@@ -382,7 +496,13 @@ const RecordGame=()=>{
                         updateStatsClick(statsClick,13);
                         dispatch(setFoul([whichGame,itemClickKey,1]));
                         SetStatsFalse();
+                        //關掉click player
+                        dispatch(setClickPlayer([itemClickKey,false]));
+                        setItemClick(false);
+                        setItemKeyClick(null);
+                        
                         Record(player[itemClickKey].Name,"進攻犯規");
+                        dispatch(setTeamFoul(whichGame));
 
                     }
                     }}> 
@@ -421,33 +541,54 @@ const RecordGame=()=>{
             </View>
 
 
-            <Modal visible={starterModal||quarterModal} animationType='slide' transparent={false} >
-                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        {(starterModal)
-                        ?
-                            <View style={styles.modalContent}>
-                                <MaterialIcons 
-                                name='close'
-                                size={24} 
-                                style={{...styles.modalToggle, ...styles.modalClose}} 
-                                onPress={() =>{setStarterModal(false)}} 
-                                />
-                                
-                                <Starter/>  
-                            </View>
-                        :  
-                            <View style={styles.modalContent}>
+            <Modal visible={starterModal||quarterModal||statsModal} animationType='slide' transparent={false} >
+                    
+                        {(()=>{
+                            if(starterModal)
+                            {
+                                return (
+                                <View style={styles.modalContent}>
                                     <MaterialIcons 
                                     name='close'
                                     size={24} 
                                     style={{...styles.modalToggle, ...styles.modalClose}} 
-                                    onPress={() =>{setQuarterModal(false)}} 
+                                    onPress={() =>{setStarterModal(false)}} 
                                     />
-                                    < ChoseQuarter/>
                                     
-                            </View>
-                        }  
-                        </TouchableWithoutFeedback>
+                                    <Starter/>  
+                                </View>)
+                            }else if(quarterModal){
+
+                                return (
+                                <View style={styles.modalContent}>
+                                        <MaterialIcons 
+                                        name='close'
+                                        size={24} 
+                                        style={{...styles.modalToggle, ...styles.modalClose}} 
+                                        onPress={() =>{setQuarterModal(false)}} 
+                                        />
+                                        < ChoseQuarter/>
+                                        
+                                </View>)
+                            }
+                            else{
+
+                                return( 
+                                <View style={styles.modalContent}>
+                                    <MaterialIcons 
+                                    name='close'
+                                    size={24} 
+                                    style={{...styles.modalToggle, ...styles.modalClose}} 
+                                    onPress={() =>{setStatsModal(false)}} 
+                                    />
+                                    <EachGameStats/>
+                                </View>)
+                                }
+                        })()
+                        }
+                    
+                         
+                        
             </Modal>
             
 
@@ -586,6 +727,7 @@ const styles=StyleSheet.create({
       },
       modalContent: {
         flex: 1,
+        //backgroundColor:'gray'
         // backgroundColor:'gray',
         
       },

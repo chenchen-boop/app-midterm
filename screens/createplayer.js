@@ -62,6 +62,11 @@ const CreatePlayer=()=>{
                     Four:[],
                     Time:[],
                   },
+                  DisplayStats:{
+                      Number:'',
+                      Name:'',
+                      
+                  }
 
                 }}
                 onSubmit={(values,actions)=>{

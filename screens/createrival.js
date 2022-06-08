@@ -13,7 +13,36 @@ const CreateRival=()=>{
         <View>
             
             <Formik
-                initialValues={{Date:'',Type:'',Name:'',Time:'',QuarterLastTime:'600',CurrentQuarter:'1',ScoreHome:0,ScoreAway:0,key:''}}
+                initialValues={{
+                    Date:'',Type:'',Name:'',Time:'',QuarterLastTime:'600',CurrentQuarter:'1',ScoreHome:0,ScoreAway:0,key:'',EachPlayerStats:[],
+                    Stats:{
+                        Number:'NaN',
+                        Name:'NaN',
+                        Min:'NaN',
+                        Point:0,
+                        Rebound:0,
+                        Assist:0,
+                        Steal:0,
+                        Block:0,
+                        FGM:0,
+                        FGA:0,
+                        FG:'NaN',
+                        ThreeFGM:0,
+                        ThreeFGA:0,
+                        TwoFGM:0,
+                        TwoFGA:0,
+                        FTM:0,
+                        FTA:0,
+                        FT:'NaN',
+                        Orebound:0,
+                        Drebound:0,
+                        TurnOver:0,
+                        Foul:0,
+                        PlusMinus:'NaN',
+                    }
+        
+                    
+                }}
                 onSubmit={(values,actions)=>{
                     // addRival(values);
                     //values.key=Math.random().toString();

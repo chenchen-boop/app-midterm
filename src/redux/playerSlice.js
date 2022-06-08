@@ -34,7 +34,19 @@ const initialState={
       },
       AvgStats:{
         
+
+        
+
+
       },
+      DisplayStats:{
+        Number:'',
+        Name:'',
+        
+
+      }
+        
+      
         
 
 
