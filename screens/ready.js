@@ -2,11 +2,15 @@ import React from 'react';
 import { View ,Text,StyleSheet,Pressable,Alert} from "react-native";
 import GlobalStyle from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector,useDispatch } from 'react-redux';
+import { addStats } from '../src/redux/playerSlice';
+import {selectWhichGame}from '../src/redux/gameSlice';
 
 const Ready=({route})=>{
     const navigation=useNavigation();
     const { Date,Name,Type } = route.params;
-   
+    const dispatch=useDispatch();
+    const whichGame=useSelector(selectWhichGame);
     return(
         <View style={GlobalStyle.container} >
            
@@ -16,7 +20,11 @@ const Ready=({route})=>{
             <Text style={[GlobalStyle.text,styles.MainText]}>VS</Text>
             <Text style={[GlobalStyle.text,styles.text,styles.redtext]}>{Name}</Text>
             <Text style={[GlobalStyle.text,styles.MainText]}>{Date}</Text>
-            <Pressable onPress={()=>navigation.navigate('RecordGame')}>
+            <Pressable onPress={()=>{
+                navigation.navigate('RecordGame');
+                dispatch(addStats());
+                console.log(whichGame);
+                }}>
                 <Text style={[GlobalStyle.text,GlobalStyle.btn]} >記錄自己數據</Text>
             </Pressable>
             <Pressable 

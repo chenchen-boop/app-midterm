@@ -2,7 +2,7 @@ import {View,Text,Pressable,FlatList,StyleSheet,Alert}from 'react-native';
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {selectGame,selectWhichGame,setCurrentQuarter,setQuarterLastTime,setChangeQuarter} from '../redux/gameSlice';
-
+import { useNavigation } from '@react-navigation/native';
 const ChoseQuarter=()=>{
     const game=useSelector(selectGame);
     const whichGame=useSelector(selectWhichGame);
@@ -23,41 +23,53 @@ const ChoseQuarter=()=>{
 
     const dispatch=useDispatch();
 
-    // useEffect(()=>{
-    //     dispatch(setCurrentQuarter([whichGame,quarter]));
-       
-    //     // console.log(game[whichGame].CurrentQuarter);
-    // },[quarter]);
-
+    const navigation=useNavigation();
 
     return(
             <View style={styles.choseQuarterContainer}>
                 <FlatList
+                    //horizontal={true}
                     numColumns={4}
                     data={choseQuarter}
                     keyExtractor={() => Math.random().toString()}
                     renderItem={({item,index})=>
-                    <View style={[styles.conBtn,{backgroundColor:setColor(item)}]}>
-                        <Pressable onPress={()=>{
-                            //  if((index+1)!=quarter&&)
-                            Alert.alert("警告","確定要到"+item+"?",
-                                [{text:'確定',onPress:()=>{
-                                    dispatch(setCurrentQuarter([whichGame,(index+1).toString()]));
-                                    //setQuarter((index+1).toString());
-                                    dispatch(setChangeQuarter([whichGame,true]));
-                                    //dispatch(setQuarterLastTime([whichGame,'600']));
-                                    // dispatch(setQuarterLastTime([whichGame,'600']));
-                                }},
-                                {text:'取消'}]);
-                            
-                        }}>
-                            <Text style={styles.btnText}>{item}</Text>
-                        </Pressable>
-                    </View>
-                                                
-                }
+                        <View style={[styles.conBtn,{backgroundColor:setColor(item)}]}>
+                            <Pressable onPress={()=>{
+                                //  if((index+1)!=quarter&&)
+                                Alert.alert("警告","確定要到"+item+"?",
+                                    [{text:'確定',onPress:()=>{
+                                        dispatch(setCurrentQuarter([whichGame,(index+1).toString()]));
+                                        //setQuarter((index+1).toString());
+                                        dispatch(setChangeQuarter([whichGame,true]));
+                                        //dispatch(setQuarterLastTime([whichGame,'600']));
+                                        // dispatch(setQuarterLastTime([whichGame,'600']));
+                                    }},
+                                    {text:'取消'}]);
+                                
+                            }}>
+                                <Text style={styles.btnText}>{item}</Text>
+                            </Pressable>
 
-                />                               
+                            
+                        </View>
+                                                
+                    }   
+
+                /> 
+                <View style={styles.endBtn}>
+                    <Pressable onPress={()=>
+                        Alert.alert("警告","確定要結束比賽?",
+                        [{text:'確定',onPress:()=>{
+                            dispatch(setCurrentQuarter([whichGame,'結束比賽']));
+                            
+                            dispatch(setChangeQuarter([whichGame,true]));
+                            navigation.navigate('Manage');
+                            
+                        }},
+                        {text:'取消'}])}>
+                        <Text style={styles.btnText}>結束比賽</Text>
+                    </Pressable> 
+                </View>                             
             </View>
     
 
@@ -67,13 +79,13 @@ export default ChoseQuarter;
 
 const styles=StyleSheet.create({
     choseQuarterContainer:{
-        flexDirection:'row',
-        paddingLeft:230
+        //flexDirection:'row',
+        //paddingLeft:230
         
        
         // marginLeft:200
-        // justifyContent:'center'
-       
+        
+       alignItems:'center',
     },
     conBtn:{
         width:150,
@@ -88,5 +100,14 @@ const styles=StyleSheet.create({
     btnText:{
         fontSize:30
     },
+    endBtn:{
+        marginTop:100,
+        width:300,
+        height:100,
+        borderWidth:2,
+        borderRadius:75,
+        alignItems:'center',
+        justifyContent:'center'
+    }
 });
   

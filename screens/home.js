@@ -17,7 +17,7 @@ const Home=()=>{
           <View style={{alignItems: "center",}}>
             <Text style={styles.title}>籃球記憶</Text>
 
-
+          
             <Pressable onPress={()=>navigation.navigate('Login')}>
               <Text style={styles.btn}>登入</Text>
             </Pressable>

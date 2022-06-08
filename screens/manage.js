@@ -8,16 +8,18 @@ import { MaterialIcons } from '@expo/vector-icons';
 import CreateRival from './createrival';
 import GlobalStyle from '../styles/global';
 import { useDispatch, useSelector } from "react-redux";
-import { selectGame, setWhichGame,delGame } from '../src/redux/gameSlice';
+import { selectGame, setWhichGame,delGame,selectWhichGame } from '../src/redux/gameSlice';
 import {setCreateGameModalOpen,selectModal} from '../src/redux/settingSlice';
 //import { selectModal,setModalOpen } from '../src/redux/settingSlice';
-
+import EachGameStats from '../src/component/eachGameStats';
 
 
 const Manage=()=>{
     const navigation = useNavigation(); 
     //const [modalOpen, setModalOpen] = useState(false);
     const modal=useSelector(selectModal);
+    const whichGame=useSelector(selectWhichGame);
+    const [statsModal,setStatsModal]=useState(false);
     // const [Rival,setRival]=useState([
     //    {Date:'4/16',Type:'友誼賽',Name:'教育系',key:'1'}
     // ]);  
@@ -63,13 +65,18 @@ const Manage=()=>{
                         <Text style={styles.item}>{item.Time}</Text>
                         <Pressable  onPress={()=>{
                             navigation.navigate('Ready',item);
-                            dispatch(setWhichGame(item.key));
+                            dispatch(setWhichGame(item.key)); //唯二能setWhichGame的地方
+                            //console.log(whichGame);
 
                         }} 
                             style={[GlobalStyle.btn,styles.btn]} >
                             <Text  style={GlobalStyle.text}>數據控制</Text>
                         </Pressable>
-                        <Pressable onPress={()=>Alert.alert("Comming Soon")} style={[GlobalStyle.btn,styles.btn]}>
+                        <Pressable onPress={()=>{
+                            setStatsModal(true);
+                            dispatch(setWhichGame(item.key)); //唯二能setWhichGame的地方
+                            }}
+                            style={[GlobalStyle.btn,styles.btn]}>
                             <Text  style={GlobalStyle.text}>數據</Text>
                         </Pressable>
                         <Pressable onPress={()=>dispatch(delGame(item.key))}>
@@ -79,22 +86,52 @@ const Manage=()=>{
                 )}
             />
             <View>
-                <Modal visible={modal.createGameModalOpen} animationType='slide'>
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View style={styles.modalContent}>
-                            <MaterialIcons 
-                            name='close'
-                            size={24} 
-                            style={{...styles.modalToggle, ...styles.modalClose}} 
-                            onPress={() => dispatch(setCreateGameModalOpen(false))} 
-                            />
-                            {/* <CreateRival addRival={addRival} /> */}
-                            <CreateRival/>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </Modal>
                 
+
+                <Modal visible={modal.createGameModalOpen||statsModal} animationType='slide'>
+                    {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+                    {(()=>{
+                        if(modal.createGameModalOpen){
+                            return(
+                                <View style={styles.modalContent}>
+                                    <MaterialIcons 
+                                    name='close'
+                                    size={24} 
+                                    style={{...styles.modalToggle, ...styles.modalClose}} 
+                                    onPress={() => dispatch(setCreateGameModalOpen(false))} 
+                                    />
+                                    {/* <CreateRival addRival={addRival} /> */}
+                                    <CreateRival/>
+                                </View>
+                            )
+                        }
+                        else{
+                            return(
+                                <View style={styles.modalContent}>
+                                    <MaterialIcons 
+                                    name='close'
+                                    size={24} 
+                                    style={{...styles.modalToggle, ...styles.modalClose}} 
+                                    onPress={() =>{setStatsModal(false)}} 
+                                    />
+                                    
+                                    <EachGameStats/>  
+                                </View>
+
+                            )
+                        }
+                    })()
+                    }
+                    
+                        
+                    {/* </TouchableWithoutFeedback> */}
+                </Modal>  
+                                       
+                                   
             </View>
+            
+
+            
            
         </View>
     );

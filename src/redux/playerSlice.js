@@ -200,7 +200,7 @@ const playerSlice = createSlice({
       else state.player[0].Stats.payload[1][payload[2]]--;
       
     },
-    addStats:(state,{payload})=>{//在starterScreen 中，Click startBtn，每位player就多一個stats
+    addStats:(state,{payload})=>{//在readyScreen 中，Click 記錄自己數據，每位player就多一個stats
       state.player.forEach((item)=>{
         item.Stats.TwoPoint.push([0,0]);
         item.Stats.ThreePoint.push([0,0]);
@@ -216,11 +216,12 @@ const playerSlice = createSlice({
        
         
         //console.log( item.Stats);
-
+       
       
 
 
       });
+      console.log("state.player[0].Stats.Steal.length"+state.player[0].Stats.Steal.length);
     },
     // Stats:{
       //TwoPoint:[[0,0]],
@@ -231,7 +232,7 @@ const playerSlice = createSlice({
 
 
 
-    setPlayer:(state,action)=>{
+    setPlayer:(state,action)=>{//set starterPlayer
       // return state.player.filter(({value})=>value.Starter=action.payload);
       //state.player[action.payload].Starter=!state.player[action.payload].Starter;
       state.player[action.payload].Starter=!state.player[action.payload].Starter;

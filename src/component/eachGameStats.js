@@ -27,7 +27,7 @@ const EachGameStats=()=>{
         teamStats.Orebound,teamStats.Drebound,teamStats.TurnOver,teamStats.Foul,teamStats.PlusMinus,
     ]);
 
-    const [test,setTest]=useState([]);
+    
     
     useEffect(()=>
         {
@@ -50,23 +50,7 @@ const EachGameStats=()=>{
             
             dispatch(setEachPlayerStats([whichGame,allPlayerStats]));
             
-            setTest(
-                (player.map((item)=>{
-                    return(
-                        {Number:item.Number,Name:item.Name,Time:item.Stats.Time[whichGame],
-                        Score:2*item.Stats.TwoPoint[whichGame][0]+3*item.Stats.ThreePoint[whichGame][0]+1*item.Stats.FreeThrow[whichGame][0],Rebound:item.Stats.Rebound[whichGame][0]+item.Stats.Rebound[whichGame][1],Assist:item.Stats.Assist[whichGame],Steal:item.Stats.Steal[whichGame],Block:item.Stats.Block[whichGame],
-                        FGM:item.Stats.TwoPoint[whichGame][0]+item.Stats.ThreePoint[whichGame][0],FGA:item.Stats.TwoPoint[whichGame][0]+item.Stats.ThreePoint[whichGame][0]+item.Stats.TwoPoint[whichGame][1]+item.Stats.ThreePoint[whichGame][1],
-                        FG:(100*(item.Stats.TwoPoint[whichGame][0]+item.Stats.ThreePoint[whichGame][0])/(item.Stats.TwoPoint[whichGame][0]+item.Stats.ThreePoint[whichGame][0]+item.Stats.TwoPoint[whichGame][1]+item.Stats.ThreePoint[whichGame][1])).toFixed(2)+'%',
-                        ThreeFGMitem:item.Stats.ThreePoint[whichGame][0],ThreeFGA:item.Stats.ThreePoint[whichGame][0]+item.Stats.ThreePoint[whichGame][1],
-                        TwoFGM:item.Stats.TwoPoint[whichGame][0],TwoFGA:item.Stats.TwoPoint[whichGame][0]+item.Stats.TwoPoint[whichGame][1],
-                        FTM:item.Stats.FreeThrow[whichGame][0],FTA:item.Stats.FreeThrow[whichGame][0]+item.Stats.FreeThrow[whichGame][1],
-                        Orebound:item.Stats.Rebound[whichGame][1],Drebound:item.Stats.Rebound[whichGame][0],
-                        TurnOver:item.Stats.TurnOver[whichGame],Foul:item.Stats.Foul[whichGame][0]+item.Stats.Foul[whichGame][1],
-                        PlusMinus:"待補"}
-
-                    );
-                }
-            )));
+            
             
             
                  
@@ -76,75 +60,7 @@ const EachGameStats=()=>{
     return(
         
         <View style={styles.container}>
-            {/* 標題 */}
-            {/* <View>
-                <FlatList
-                    horizontal={true}
-                    data={statsTitle}
-                    keyExtractor={(item,index) =>index.toString() }
-                    renderItem={({item})=>(
-                        <View style={styles.title}>
-                            <Text style={styles.titleText}>
-                                {item}
-                            </Text>
-                        </View>
-
-                    )}
-                />
-            </View>
-
-
-
             
-            {/* 球員數據 */}
-            {/* <View>
-                
-                <FlatList
-                    
-                    data={allPlayerStats}//[[],[],[]...]
-                    keyExtractor={(item)=>item[0]+item[1]}//Number+Name
-                    renderItem={({item,index})=>(
-                        
-                    <View>
-                        <FlatList
-                                horizontal={true}
-                                data={item}
-                                keyExtractor={(item,index)=>index}
-                                renderItem={({item})=>(
-                                    
-                                    
-                                    <View style={styles.box}>
-                                        <Text style={styles.conText}>{item}</Text>
-                                    </View>
-                                
-                            )}/>        
-                            
-                            
-                    </View> 
-                        
-                        
-                )}/>
-
-                
-                
-            </View> */}
-            {/* 球隊數據 */}
-            {/* <View>
-                
-                <FlatList
-                    horizontal
-                    data={stats}
-                    keyExtractor={(item,index)=>index}
-                    renderItem={({item})=>(
-                        <View style={styles.box}>
-                            <Text style={styles.conText}>{item}</Text>
-                        </View>
-                    )}                
-                
-                />
-                
-            </View> */} 
-
             
     
     <View>

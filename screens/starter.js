@@ -4,7 +4,7 @@ import {View,Text,FlatList, StyleSheet,Pressable,Button,Modal,TouchableWithoutFe
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyle from '../styles/global';
 import { MaterialIcons } from '@expo/vector-icons'; 
-import { selectPlayer,setPlayer,addStats} from "../src/redux/playerSlice";
+import { selectPlayer,setPlayer} from "../src/redux/playerSlice";
 import { setGame } from "../src/redux/gameSlice";
 import { TextInput } from "react-native-gesture-handler";
 import RecordGame from "./recordGame";
@@ -22,12 +22,7 @@ const Starter=()=>{
     };
     const dispatch=useDispatch();
     
-    const [ModalOpen, setModalOpen] = useState(false);
-    // useEffect(()=>{
-    //     dispatch(setGame())
     
-    //     },[ModalOpen]);
-
 
     return(
         <View style={styles.container}>
@@ -61,14 +56,10 @@ const Starter=()=>{
             </View>
             <View style={styles.rightContainer}>
                 <Button title="開始比賽" 
-                onPress={()=>{
-                    dispatch(addStats());
-                    navigation.navigate('RecordGame');
-                    
-                    }
-                }/>
+                
+                />
                 {/* <Button title="比賽時間" onPress={()=>setModalOpen(true)}/> */}
-                <Button title="管理球員"/>
+                <Button title="管理球員" onPress={()=>navigation.navigate('Main')}/>
                 
                 
 

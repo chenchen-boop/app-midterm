@@ -55,7 +55,7 @@ const gameSlice=createSlice({
             state.game.push(action.payload);
         
         },
-        setWhichGame:(state,{payload})=>{
+        setWhichGame:(state,{payload})=>{//在manageScreen中設定
             state.whichGame=payload;
         },
         delGame:(state,{payload})=>{

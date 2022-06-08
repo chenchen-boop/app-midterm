@@ -1,5 +1,5 @@
 import React,{ useState ,useRef, useEffect} from 'react';
-import {View,Text,StyleSheet,FlatList,Pressable,Image,Button,Modal,TouchableWithoutFeedback, Keyboard,} from 'react-native';
+import {View,Text,StyleSheet,FlatList,Pressable,Image,Button,Modal,TouchableWithoutFeedback, Keyboard,Alert} from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { selectPlayer,setClickPlayer ,
      setTwoPoint,setDelTwoPoint,setThreePoint,setDelThreePoint,setFreeThrow,setDelFreeThrow,setRebound,setDelRebound,
@@ -18,6 +18,7 @@ import Starter from './starter';
 import Timer from '../src/component/timer';
 import ChoseQuarter from '../src/component/choseQuarter';
 import EachGameStats from '../src/component/eachGameStats';
+
 
 const RecordGame=()=>{
     //var TimerMixin = require('react-timer-mixin'); 
@@ -115,7 +116,14 @@ const RecordGame=()=>{
 
 
     };
-    const [anyModal,setAnyModal]=useState(false);
+    const checkIsFive=(player)=>{
+        let playerNum=0;
+        player.map((item)=>{
+            if(item.Starter) playerNum++;
+        });
+        if(playerNum==5)return true;
+        else return false;
+    };
     const [starterModal,setStarterModal]=useState(true);
     const [quarterModal,setQuarterModal]=useState(false);
     const [statsModal,setStatsModal]=useState(false);
@@ -125,15 +133,8 @@ const RecordGame=()=>{
     //const [scoreHome,setscorehome]=useState(game[whichGame].scoreHome);
 
     const scoreHome=game[whichGame].ScoreHome;
-    // useEffect(()=>{
-    //     dispatch(setCurrentQuarter([whichGame,quarter]));
-    //     console.log(game[whichGame].CurrentQuarter);
-    // },[quarter]);
-
-
-    // useEffect(()=>{
-    //     dispatch(setScoreHome([whichGame,scoreHome]));
-    // },[scoreHome]);
+    
+    
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -552,7 +553,11 @@ const RecordGame=()=>{
                                     name='close'
                                     size={24} 
                                     style={{...styles.modalToggle, ...styles.modalClose}} 
-                                    onPress={() =>{setStarterModal(false)}} 
+                                    onPress={() =>{
+                                        if(checkIsFive(player))setStarterModal(false);
+                                        else Alert.alert('警告','請選取五位球員');
+                                        
+                                    }} 
                                     />
                                     
                                     <Starter/>  
